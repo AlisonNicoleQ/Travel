@@ -1,0 +1,142 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgres"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  ID_admin    Int      @id @default(autoincrement())
+  nombre      String
+  correo      String
+  contrasena  String
+  imagen      Bytes?
+  destinos    Destinos[]
+}
+
+model Cliente {
+  ID_cliente      Int      @id @default(autoincrement())
+  nombre          String
+  telefono        String?
+  correo          String
+  contrasena      String
+  ID_instagram    String?
+  ID_Facebook     String?
+  imagen          Bytes?
+  Preferencias    String?
+  ID_idioma       Int?
+  idioma          Idiomas?  @relation(fields: [ID_idioma], references: [ID_idioma])
+}
+
+model Destinos {
+  ID_destino      Int      @id @default(autoincrement())
+  nombre          String
+  precio          Float?
+  ubicacion       String?
+  categoria       String?
+  actividades     String?
+  cupos           Int?
+  ID_admin        Int?
+  admin           Admin?   @relation(fields: [ID_admin], references: [ID_admin])
+}
+
+model Eventos {
+  ID_evento       Int      @id @default(autoincrement())
+  ID_tipo_e       Int?
+  ID_cliente      Int?
+  descripcion     String?
+  fecha           DateTime?
+  ID_admin        Int?
+}
+
+model Idiomas {
+  ID_idioma       Int      @id @default(autoincrement())
+  nombre          String
+  codigo          String
+  cliente         Cliente[]
+}
+
+model Itinerario {
+  ID_itinerario   Int      @id @default(autoincrement())
+  ID_cliente      Int?
+  ID_reserva      Int?
+  nombre          String?
+  descripcion     String?
+}
+
+model Pagos {
+  ID_pago         Int      @id @default(autoincrement())
+  ID_cliente      Int?
+  ID_tipo_m       Int?
+  nombre_titular  String
+  numero_tarjeta  String
+  fecha_expiracion DateTime?
+  cvv             Int?
+  direccion       String?
+}
+
+model RecuperacionContrasena {
+  ID_request      Int      @id @default(autoincrement())
+  ID_cliente      Int?
+  ID_admin        Int?
+  Token           String
+  Fecha           DateTime?
+  Estado          String?
+}
+
+model Review {
+  ID_review       Int      @id @default(autoincrement())
+  ID_cliente      Int?
+  ID_tipo_s       Int?
+  ID_servicio     Int?
+  ID_destino      Int?
+  calificacion    Int?
+  comentario      String?
+  fecha           DateTime?
+  ID_admin        Int?
+}
+
+model Reservas {
+  ID_reserva      Int      @id @default(autoincrement())
+  ID_cliente      Int?
+  ID_itinerario   Int?
+  ID_servicio     Int?
+  fecha_inicio    DateTime?
+  fecha_fin       DateTime?
+  precio_total    Float?
+  ID_admin        Int?
+}
+
+model Servicios {
+  ID_servicio     Int      @id @default(autoincrement())
+  ID_tipo_s       Int?
+  nombre          String
+  destino         String?
+  precio_diario   Float?
+  detalles        String?
+  ID_admin        Int?
+}
+
+model Tipo_evento {
+  ID_tipo_e       Int      @id @default(autoincrement())
+  ID_destino      Int?
+  ID_servicio     Int?
+  ID_reserva      Int?
+}
+
+model Tipo_moneda {
+  ID_tipo_m       Int      @id @default(autoincrement())
+  nombre          String
+  codigo          String
+  simbolo         String?
+}
+
+model Tipo_servicio {
+  ID_tipo_s       Int      @id @default(autoincrement())
+  Descripcion     String?
+}
