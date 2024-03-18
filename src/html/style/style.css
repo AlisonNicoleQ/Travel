@@ -19,6 +19,15 @@ body{
     padding-right: 5%;
 }
 
+.navBar-items{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 30%;
+    height: 100%;
+
+}
+
 /* Toda la Segunda Parte de la foto de Guia */
 .section-foto{
     height: 90vh;
@@ -81,11 +90,30 @@ body{
 .info-text{
     border: solid blue;
     width: 60%;
-    height: 60%;
+    height: 100%;
 }
 
 .info-img{
     border: solid pink;
     width: 60%;
-    height: 60%;
+    height: 100%;
+}
+
+.footer{
+    height: 10vh;
+    border: solid green;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.redes{
+    margin-top: -.5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    height: 50%;
+    gap: 1%;
 }
