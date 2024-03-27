@@ -7,6 +7,7 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
     const name = formData.get('name'); // Extract name from form data
     const email = formData.get('email');
     const password = formData.get('password');
+    const phoneNumber = formData.get('phone');
   
     try {
       const response = await fetch('/api/clientes', {
@@ -14,7 +15,7 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ nombre: name, correo: email, contrasena: password }) // Include name in the request body
+        body: JSON.stringify({ nombre: name, telefono:phoneNumber, correo: email, contrasena: password }) // Include name in the request body
       });
   
       if (response.ok) {

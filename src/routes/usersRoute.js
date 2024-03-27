@@ -34,12 +34,13 @@ router.get('/admin', async (req, res) => {
 // POST = INSERT
 // POST para crear un cliente solamente con el nombre, correo y contraseña
 router.post('/clientes', async (req, res) => {
-  const { nombre, correo, contrasena } = req.body;
+  const { nombre, correo, contrasena, telefono } = req.body;
 
   try {
     const newCliente = await prisma.cliente.create({
       data: {
         nombre,
+        telefono,
         correo,
         contrasena
       }
