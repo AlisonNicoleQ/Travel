@@ -10,7 +10,7 @@ body{
 }
 
 .hide{
-    display: none;
+    display: none; 
 }
 
 #login-container{
@@ -19,6 +19,18 @@ body{
     justify-content: center;
     align-items: center;
     height: 100%;
+}
+
+.createAccount{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.createAccount :first-child{
+    margin-bottom: 10%;
 }
 
 .login-input{
@@ -69,7 +81,7 @@ body{
     justify-content: space-evenly;
     align-items: flex-start;
     width: 80%;
-    height: 40%;
+    height: 30%;
     border: solid blue;
 
 }
@@ -80,6 +92,23 @@ body{
     justify-content: space-evenly;
     align-items: flex-start;
     width: 80%;
-    height: 40%;
+    height: 30%;
     border: solid green;
+}
+
+.user-history{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    width: 80%;
+    height: 30%;
+    border: solid yellow;
+}
+
+#login{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

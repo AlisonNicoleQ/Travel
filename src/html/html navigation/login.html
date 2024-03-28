@@ -13,36 +13,67 @@
     </div>
     
     <div id="login-container">
-        <h2>Login</h2>
 
-        <form id="loginForm">
-            <div class="login-input">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required><br><br>
+        <div id="createAccount">
+            <div class="title">
+                <h2>Create Account</h2>
             </div>
+            
+            <form id="CreateAccountForm">
+                <div class="login-input">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required><br><br>
+                </div>
 
-            <div class="login-input">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required><br><br>
-            </div>
-           
+                <div class="login-input">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required><br><br>
+                </div>
             
-            <div class="login-input">
-                <label for="phone">Telefono:</label>
-                <input type="phone" id="phone" name="phone" required><br><br>
-            </div>
+                
+                <div class="login-input">
+                    <label for="phone">Telefono:</label>
+                    <input type="phone" id="phone" name="phone" required><br><br>
+                </div>
+                
+                
+                <div class="login-input">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required><br><br>
+                </div>
+                
+                <div class="login-btn">
+                    <button type="submit">Login</button>
+                </div>
+                
+            </form>
             
-            
-            <div class="login-input">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required><br><br>
-            </div>
-            
-            <div class="login-btn">
-                <button type="submit">Login</button>
-            </div>
-            
-        </form>
+        </div>
+
+        <div id="login">
+            <h2>Log In</h2>
+            <form id="loginForm">
+                <div class="login-input">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required><br><br>
+                </div>                
+                
+                <div class="login-input">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required><br><br>
+                </div>
+                
+                <div class="login-btn">
+                    <button type="submit">Login</button>
+                </div>
+
+                <div id="create-account">
+                    <p>Don't have an account? <a href="#" onclick="createAccount()">Create one!</a></p>
+                </div>
+                
+            </form>
+        </div>
+        
     </div>    
 
     <!-- Once User has logged in, or is already logged in, they can see this div -->
@@ -71,6 +102,10 @@
             <!-- Aqui se van a poner los settings que desea el usuario, se van a guardar en base de datos de forma de array (espero) -->
             <div class="user-settings">
                 <h2>User Preferences</h2>
+            </div>
+
+            <div class="user-history">
+                <h2>Reservation History</h2>
             </div>
             
             

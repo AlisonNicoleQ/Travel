@@ -1,15 +1,17 @@
 // logintest.js
 
 const userProfile = document.getElementById('user-profile');
-
+const createAcc = document.getElementById('createAccount');
+const login = document.getElementById('login');
 
 document.addEventListener('DOMContentLoaded', async () => { 
   // comienza "escondido"
   userProfile.classList.add('hide');
+  createAcc.classList.add('hide');
 });
 
 
-document.getElementById('loginForm').addEventListener('submit', async (event) => {
+document.getElementById('CreateAccountForm').addEventListener('submit', async (event) => {
   event.preventDefault();
 
   const formData = new FormData(event.target);
@@ -93,4 +95,10 @@ function displayResponseMessage(message, isError) {
 
   // Make the alertDiv visible
   alertDiv.style.display = 'block';
+}
+
+
+function createAccount(){
+  login.style.display = 'none';
+  createAcc.classList.remove('hide');
 }
