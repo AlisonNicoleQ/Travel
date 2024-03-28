@@ -47,6 +47,35 @@
 
     <!-- Once User has logged in, or is already logged in, they can see this div -->
     <div id="user-profile">
+        <div class="user-header">
+            <h1>User Profile</h1>
+            <div id="logout-btn">
+                <button>Logout</button>
+            </div>
+        </div>
+        
+        <!-- parent holder of all sections -->
+        <div class="user-section">
+            
+            <!-- Seccion Para editar la informacion del usuario si es el caso -->
+            <div class="user-info">
+                <h2>Edit Information</h2>
+                <p><strong>Name:</strong> <span id="user-name">nombre actual</span></p>
+                <p><strong>Email:</strong> <span id="user-email">email actual</span></p>
+                <p><strong>Phone:</strong> <span id="user-phone">correo actual</span></p>
+                <p><strong>Password:</strong> <span id="user-password">password actual</span></p>
+                <p><strong>Picture:</strong> <span id="user-password">foto</span></p>
+                <button id="edit-info">Edit</button>
+            </div>
+
+            <!-- Aqui se van a poner los settings que desea el usuario, se van a guardar en base de datos de forma de array (espero) -->
+            <div class="user-settings">
+                <h2>User Preferences</h2>
+            </div>
+            
+            
+        </div>
+        
 
     </div>
 

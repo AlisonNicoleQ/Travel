@@ -1,5 +1,14 @@
 // logintest.js
 
+const userProfile = document.getElementById('user-profile');
+
+
+document.addEventListener('DOMContentLoaded', async () => { 
+  // comienza "escondido"
+  userProfile.classList.add('hide');
+});
+
+
 document.getElementById('loginForm').addEventListener('submit', async (event) => {
   event.preventDefault();
 
@@ -25,7 +34,10 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
           console.log('Cliente creado:', data);
           // hide login container
           document.getElementById("login-container").style.display = "none";
+          // show user profile
+          userProfile.classList.remove('hide');
           displayResponseMessage('Account created successfully!');
+
           
       } else {
           const errorData = await response.json();
