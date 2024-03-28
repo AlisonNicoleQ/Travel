@@ -28,7 +28,7 @@ document.getElementById('CreateAccountForm').addEventListener('submit', async (e
           headers: {
               'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ nombre: name, telefono: phoneNumber, correo: email, contrasena: password }) // Include name in the request body
+          body: JSON.stringify({ nombre: name, telefono: phoneNumber, correo: email, contrasena: password })
       });
   
       if (response.ok) {
@@ -53,38 +53,38 @@ document.getElementById('CreateAccountForm').addEventListener('submit', async (e
 });
 
 document.getElementById('loginForm').addEventListener('submit', async (event) => {
-  event.preventDefault();
-
-  const formData = new FormData(event.target);
-  const email = formData.get('email');
-  const password = formData.get('password');
-
-  console.log('Email:', email);
-
-  try {
-      const response = await fetch('/api/login', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ correo: email, contrasena: password })
-      });
-
-      if (response.ok) {
-          // Login successful
-          alert('Login successful');
-          // Optionally, redirect the user to another page or perform other actions
-      } else {
-          const errorData = await response.json();
-          alert(`Error: ${errorData.error}`);
-          // Optionally, display an error message to the user
-      }
-  } catch (error) {
-      console.error('Error during login:', error);
-      alert('Error: Internal server error');
-      // Optionally, display an error message to the user
-  }
-});
+    event.preventDefault();
+  
+    const formData = new FormData(event.target);
+    const email = formData.get('login-email'); 
+    const password = formData.get('login-password');
+  
+    console.log('Email:', email);
+  
+    try {
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ correo: email, contrasena: password })
+        });
+  
+        if (response.ok) {
+            // Login successful
+            alert('Login successful');
+            // Optionally, redirect the user to another page or perform other actions
+        } else {
+            const errorData = await response.json();
+            alert(`Error: ${errorData.error}`);
+            // Optionally, display an error message to the user
+        }
+    } catch (error) {
+        console.error('Error during login:', error);
+        alert('Error: Internal server error');
+        // Optionally, display an error message to the user
+    }
+});  
 
 
 function displayCreatingAccountMessage() {

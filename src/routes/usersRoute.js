@@ -56,13 +56,14 @@ router.post('/clientes', async (req, res) => {
 
 //ruta para el login, verifica que el email que se da existe, y ademas revisa que el pass sea igual.
 router.post('/login', async (req, res) => {
-  const { email, password } = req.body;
+  const { correo, contrasena } = req.body;
 
+  console.log('Received email:', correo);
   try {
       // Query the database to find a user with the provided email
       const user = await prisma.cliente.findUnique({
           where: {
-              correo: email
+              correo: correo
           }
       });
 
@@ -72,7 +73,7 @@ router.post('/login', async (req, res) => {
       }
 
       // Check if the provided password matches the stored password
-      if (user.contrasena !== password) {
+      if (user.contrasena !== contrasena) {
           return res.status(401).json({ error: 'Incorrect password' });
       }
 
