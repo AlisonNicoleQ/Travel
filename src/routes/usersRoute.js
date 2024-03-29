@@ -1,13 +1,13 @@
 // Archivo: src/routes/usersRoute.js
 
-//Se importa express
 import express from 'express';
-//Funcion 'Router'
+import { PrismaClient } from '@prisma/client'; // Importar Prisma Client
+
 const router = express.Router();
-//Se importa la DB, siempre hay que ponerle el .js
-import prisma from '../database.js';
+const prisma = new PrismaClient(); // Crear una instancia de Prisma Client
 
 router.use(express.json());
+
 
 // Ruta para obtener los clientes
 router.get('/clientes', async (req, res) => {
@@ -85,5 +85,7 @@ router.post('/login', async (req, res) => {
       res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+
 
 export default router;

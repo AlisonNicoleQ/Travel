@@ -12,18 +12,18 @@ datasource db {
 
 model Admin {
   ID_admin    Int      @id @default(autoincrement())
-  nombre      String
-  correo      String
-  contrasena  String
+  nombre      String   @unique @db.VarChar(255)
+  correo      String   @unique @db.VarChar(255)
+  contrasena  String   
   imagen      Bytes?
   destinos    Destinos[]
 }
 
 model Cliente {
   ID_cliente      Int      @id @default(autoincrement())
-  nombre          String
+  nombre          String   @unique @db.VarChar(255)
   telefono        String?
-  correo          String
+  correo          String   @unique @db.VarChar(255)
   contrasena      String
   ID_instagram    String?
   ID_Facebook     String?
