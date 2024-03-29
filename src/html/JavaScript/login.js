@@ -59,7 +59,7 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
     const email = formData.get('login-email'); 
     const password = formData.get('login-password');
   
-    console.log('Email:', email);
+    displayCreatingAccountMessage('Logging in...');
   
     try {
         const response = await fetch('/api/login', {
@@ -72,11 +72,13 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
   
         if (response.ok) {
             // Login successful
-            alert('Login successful');
+            displayResponseMessage('Logged in successfully!')
+            userProfile.classList.remove('hide');
+            document.getElementById("login-container").style.display = "none";
             // Optionally, redirect the user to another page or perform other actions
         } else {
             const errorData = await response.json();
-            alert(`Error: ${errorData.error}`);
+            displayResponseMessage(`Error: ${errorData.message}`, true)
             // Optionally, display an error message to the user
         }
     } catch (error) {
@@ -87,9 +89,9 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
 });  
 
 
-function displayCreatingAccountMessage() {
+function displayCreatingAccountMessage(msg) {
     const alertDiv = document.getElementById('alert');
-    alertDiv.innerText = 'Creating account...';
+    alertDiv.innerText = msg || 'Creating account...', // Default message;
     alertDiv.style.display = 'block';
     alertDiv.style.position = 'fixed';
     alertDiv.style.top = '50%';
