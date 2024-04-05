@@ -138,5 +138,3 @@ function createAccount(){
   login.style.display = 'none';
   createAcc.classList.remove('hide');
 }
-
-//alsdkjalkd
