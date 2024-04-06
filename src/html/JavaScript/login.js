@@ -17,7 +17,7 @@ document.getElementById('CreateAccountForm').addEventListener('submit', async (e
   event.preventDefault();
 
   const formData = new FormData(event.target);
-  const name = formData.get('name'); // Extract name from form data
+  const name = formData.get('name');
   const email = formData.get('email');
   const password = formData.get('password');
   const phoneNumber = formData.get('phone');
@@ -36,9 +36,9 @@ document.getElementById('CreateAccountForm').addEventListener('submit', async (e
       if (response.ok) {
           const data = await response.json();
           console.log('Cliente creado:', data);
-          // hide login container
+          
           document.getElementById("login-container").style.display = "none";
-          // show user profile
+
           userProfile.classList.remove('hide');
           displayResponseMessage('Account created successfully!');
           const cliente = data.cliente;
@@ -49,7 +49,7 @@ document.getElementById('CreateAccountForm').addEventListener('submit', async (e
 
           console.log('Cliente Creado ID:', clienteId)
 
-          // Displaying client details in HTML
+          // Poner los valores en el HTML
           document.getElementById("user-name").textContent = clienteName;
           document.getElementById("user-email").textContent = clienteEmail;
           document.getElementById("user-phone").textContent = clientePhone;
@@ -100,7 +100,7 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
 
             console.log('Cliente ID:', clienteId)
 
-            // Displaying client details in HTML
+            // Poner los valores en el HTML
             document.getElementById("user-name").textContent = clienteName;
             document.getElementById("user-email").textContent = clienteEmail;
             document.getElementById("user-phone").textContent = clientePhone;
@@ -110,57 +110,55 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
         } else {
             const errorData = await response.json();
             displayResponseMessage(`Error: ${errorData.message}`, true)
-            // Optionally, display an error message to the user
         }
     } catch (error) {
         console.error('Error during login:', error);
         alert('Error: Internal server error');
-        // Optionally, display an error message to the user
     }
 });  
 
 
 function displayCreatingAccountMessage(msg) {
     const alertDiv = document.getElementById('alert');
-    alertDiv.innerText = msg || 'Creating account...', // Default message;
+    alertDiv.innerText = msg || 'Creating account...', 
     alertDiv.style.display = 'block';
     alertDiv.style.position = 'fixed';
     alertDiv.style.top = '50%';
     alertDiv.style.left = '50%';
     alertDiv.style.transform = 'translate(-50%, -50%)';
-    alertDiv.style.backgroundColor = '#ffffff'; // White background
-    alertDiv.style.padding = '20px'; // Add padding for better visibility
-    alertDiv.style.borderRadius = '10px'; // Rounded corners
+    alertDiv.style.backgroundColor = '#ffffff'; 
+    alertDiv.style.padding = '20px'; 
+    alertDiv.style.borderRadius = '10px'; 
 }
 
 function displayResponseMessage(message, isError) {
   const alertDiv = document.getElementById('alert');
-  alertDiv.style.backgroundColor = isError ? '#ffcccc' : '#ffffff'; // White background for success, light red for error
+  alertDiv.style.backgroundColor = isError ? '#ffcccc' : '#ffffff'; // Cambiar color de fondo
 
-  // Clear any existing content
+  // quitamos el contenido del div
   alertDiv.innerHTML = '';
 
-  // Create message paragraph element
+  // creamos un parrafo
   const messageParagraph = document.createElement('p');
   messageParagraph.textContent = message;
 
-  // Append message paragraph to alertDiv
+  // agregamos el mensaje al div
   alertDiv.appendChild(messageParagraph);
 
-  // Create OK button
+  // Crear el boton
   const okButton = document.createElement('button');
   okButton.textContent = 'OK';
-  okButton.style.marginTop = '10px'; // Add some margin between message and button
+  okButton.style.marginTop = '10px'; // agregar margen superior
 
-  // Add event listener to hide alert on OK button click
+  // agregar evento del boton ok
   okButton.addEventListener('click', () => {
       alertDiv.style.display = 'none';
   });
 
-  // Append OK button to alertDiv
+  // agregar el boton ok
   alertDiv.appendChild(okButton);
 
-  // Make the alertDiv visible
+  // Display alert
   alertDiv.style.display = 'block';
 }
 
@@ -180,7 +178,7 @@ async function EditInfo() {
         infoSpans.forEach(function(span) {
             var input = document.createElement('input');
             input.value = span.textContent.trim();
-            input.id = span.id.replace('user-', ''); // Setting input id without 'user-' prefix
+            input.id = span.id.replace('user-', ''); // Eliminando el prefijo 'user-' del id del span
             span.parentNode.replaceChild(input, span);
         });
         button.textContent = 'Save';
@@ -189,14 +187,14 @@ async function EditInfo() {
         inputFields.forEach(function(input) {
             var span = document.createElement('span');
             span.textContent = input.value;
-            span.id = 'user-' + input.id; // Setting span id with 'user-' prefix
+            span.id = 'user-' + input.id; // Poniendo el prefijo 'user-' al id del span
             input.parentNode.replaceChild(span, input);
 
-            // Using input id directly as key
+            // USando el id del input como key para el objeto updatedInfo
             updatedInfo[input.id] = input.value;
         });
 
-        console.log('Updated info:', updatedInfo); // Log updatedInfo object
+        console.log('Updated info:', updatedInfo);
         
         await Update(updatedInfo);
 
@@ -236,4 +234,73 @@ async function Update(updatedInfo){
         console.error('Error al actualizar el cliente:', error);
         displayResponseMessage('Error: Network issue, please try again later.', true);
     }
+}
+
+//get user preferences:
+document.getElementById('button_pref').addEventListener('click', async function() {
+    // Get the value of the checkbox
+    var notificationsCheckbox = document.getElementById('notificaciones');
+    var notificationsValue = notificationsCheckbox.checked;
+    
+    // Get all radio buttons
+    var radioButtons = document.querySelectorAll('.user-settings input[type="radio"]');
+    
+    // Object to store preferences
+    var preferences = {
+        notificaciones: notificationsValue
+    };
+    
+    // Iterate through each radio button
+    radioButtons.forEach(function(radioButton) {
+        // Check if the radio button is checked
+        if (radioButton.checked) {
+            // Add radio button value to the object using the radio button name as key
+            preferences[radioButton.name] = radioButton.value;
+        }
+    });
+
+    // Log the preferences object
+    console.log("User Preferences:", preferences);
+    UpdatePref(preferences);
+});
+
+
+//update user preferences: 
+//actualizamos las preferncias del usuario
+async function UpdatePref(preferences){
+    var preferencias = {
+        notificaciones: preferences.notificaciones,
+        moneda: preferences.moneda,
+    }
+    //creamos un objeto el cual puede ser utilizado despues para procesar esos datos mas facil
+
+    const idioma = parseInt(preferences.idioma); //idioma se guarda como un int, ya que es una relacion foranea.
+    console.log('Idioma:', idioma);
+
+    var preferenciasString = JSON.stringify(preferencias);
+    console.log(preferenciasString)
+
+    try {
+        const response = await fetch('/api/updatePreferences', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ID_cliente: clienteId, Preferencias: preferenciasString, idioma: idioma})
+        });
+        
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Cliente actualizado:', data);
+            displayResponseMessage('Account updated successfully!');
+        } else {
+            const errorData = await response.json();
+            console.error('Error al actualizar el cliente:', errorData);
+            displayResponseMessage(`Error: ${errorData.error}`, true);
+        }
+    } catch (error) {
+        console.error('Error al actualizar el cliente:', error);
+        displayResponseMessage('Error: Network issue, please try again later.', true);
+    }
+
 }

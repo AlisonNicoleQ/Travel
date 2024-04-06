@@ -113,6 +113,32 @@ router.put('/updateCliente', async (req, res) => {
   }
 });
 
-//comentario
+// Add Preferences to User
+router.put('/updatePreferences', async (req, res) => {
+  const { ID_cliente, Preferencias, idioma } = req.body;
+
+  try {
+    const updatedCliente = await prisma.cliente.update({
+      where: {
+        ID_cliente
+      },
+      data: {
+        Preferencias,
+        idioma: {
+          connect: { ID_idioma: idioma } //creamos la conexion de la llave foranea con el int del idioma que recibimos
+        }
+      }
+    });
+
+    res.json(updatedCliente);
+    console.log('Cliente actualizado:', updatedCliente);
+  } catch (error) {
+    console.error(`Error al actualizar las preferencias del cliente: ${ID_cliente}: ${error}`);
+    res.status(500).json({ error: 'Hubo un error al actualizar las preferencias del cliente' });
+  }
+});
+
+
+
 
 export default router;
