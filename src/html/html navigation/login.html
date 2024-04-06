@@ -81,7 +81,7 @@
         <div class="user-header">
             <h1>User Profile</h1>
             <div id="logout-btn">
-                <button>Logout</button>
+                <a href="../index.html">LogOut</a>
             </div>
         </div>
         
@@ -95,8 +95,10 @@
                 <p><strong>Email:</strong> <span id="user-email">email actual</span></p>
                 <p><strong>Phone:</strong> <span id="user-phone">correo actual</span></p>
                 <p><strong>Password:</strong> <span id="user-password">password actual</span></p>
-                <p><strong>Picture:</strong> <span id="user-password">foto</span></p>
-                <button id="edit-info">Edit</button>
+                <p><strong>Picture:</strong> <span id="user-photo">foto</span></p>
+                
+                
+                <button id="edit-info" onclick="EditInfo()">Edit</button>
             </div>
 
             <!-- Aqui se van a poner los settings que desea el usuario, se van a guardar en base de datos de forma de array (espero) -->

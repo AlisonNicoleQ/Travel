@@ -46,7 +46,7 @@ router.post('/clientes', async (req, res) => {
       }
     });
 
-    res.json(newCliente);
+    res.json({cliente: newCliente});
     console.log('Cliente creado:', newCliente);
   } catch (error) {
     console.error('Error al crear el cliente:', error);
@@ -78,7 +78,8 @@ router.post('/login', async (req, res) => {
       }
 
       // If user exists and password matches, authentication successful
-      res.json({ message: 'Login successful' });
+      res.json({ message: 'Login successful', cliente: user});
+      console.log('User Login:', user);
 
   } catch (error) {
       console.error('Error during login:', error);
@@ -86,6 +87,31 @@ router.post('/login', async (req, res) => {
   }
 });
 
+//Update Cliente
+router.put('/updateCliente', async (req, res) => {
+  const { ID_cliente, nombre, correo, contrasena, telefono, imagen } = req.body;
+
+  try {
+    const updatedCliente = await prisma.cliente.update({
+      where: {
+        ID_cliente
+      },
+      data: {
+        nombre,
+        correo,
+        contrasena,
+        telefono,
+        imagen
+      }
+    });
+
+    res.json(updatedCliente);
+    console.log('Cliente actualizado:', updatedCliente);
+  } catch (error) {
+    console.error(`Error al actualizar el cliente: ${id} , ${nombre}, ${correo}, ${contrasena}, ${telefono}, ${imagen}`);
+    res.status(500).json({ error: 'Hubo un error al actualizar el cliente' });
+  }
+});
 
 //comentario
 
