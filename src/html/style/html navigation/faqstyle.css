@@ -57,7 +57,7 @@ h2 {
   display: grid;
   grid-template-columns: repeat(2, 1fr); 
   gap: 20px; 
-  background-image: url('imagenes/backgroundmv.jpeg');
+  background-image: url('../imagenes/backgroundmv.jpeg');
 }
 
 .Quienessomos {
