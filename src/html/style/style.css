@@ -1,17 +1,18 @@
-*{
+
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:wght@400&display=swap');
+
+* {
     margin: 0%;
     padding: 0%;
 }
 
-body{
-    height: 100vh;
+body {
+    height: 100%;
     width: auto;
 }
-
-/* Seccion de arriba de la foto, Nav Bar */
-.section-navBar{
+.section-navBar {
     height: 8vh;
-    border: solid red;
+    border: 1px solid green;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -19,85 +20,190 @@ body{
     padding-right: 5%;
 }
 
-.navBar-items{
+.navBar-items {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     width: 30%;
     height: 100%;
-
 }
 
-/* Toda la Segunda Parte de la foto de Guia */
-.section-foto{
-    height: 90vh;
-    border: solid blue;
+.navBar-items img {
+    width: 40px; 
+    height: auto;
+
+}
+.textoNavBar{
+    font-size: 50px;
+    color: #00750b
+}
+
+.section-provincia .img-home {
+    margin-bottom: 10px;
+}
+
+.section-foto p {
+    font-size: 24px;
+    color: #333; 
+    font-weight: bold; 
+    margin-bottom: 5px;
+}
+
+
+.link-verde {
+    margin-top: 5px;
+    display: inline-block; 
+    background-color: green;
+    color: white;
+    padding: 10px 20px; 
+    border-radius: 5px;
+    text-decoration: none;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 50px; 
+    text-align: center;
+    font-size: 20px;  
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.link-verde:hover {
+    background-color: darkgreen;
+}
+
+.section-foto {
+    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
+    justify-content: space-around;
+    align-items: center;    
 }
 
-.contenedor-nombre{
+.contenedor-nombre {
     width: 10%;
     height: 5%;
-    border: solid purple;
-    
-    /* como es un div, le puse esto para centrarlo, se puede sacar del div y usar otras propiedades */
-    display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.img-home{
-    border: green solid;
-    width: 60%;
-    height: 60%;
-
-    /* como es un div, le puse esto para centrarlo, se puede sacar del div y usar otras propiedades */
+.img-home {
+    max-width: none;
     display: flex;
     align-items: center;
     justify-content: center;
+    object-fit: cover;
 }
 
-.options{
+.img-home img{
+    width: 41cm; 
+    height: auto;
+}
+.options {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
-    width: 60%;
-    height: 10%;
-    border: solid yellow;
+    width: 100%;
+    flex-wrap: wrap;
+    height: 20vh;
 }
 
+.options h4{
+        color: #6d706d;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 10px;
+        margin-left: 10px;
+}
 
-.section-info{
-    height: 60vh;
-    border: solid orange;
+.options img {
+    overflow: hidden;
+    width: 4cm;
+
+}
+
+.item{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.info-container{
+/*seccion de informacion-*/
+.section-info {
+    height: 100%;
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-container {
+    display: flex;
+    justify-content: center;
     align-items: center;
     width: 60%;
-    height: 50%
 }
 
-.info-text{
-    border: solid blue;
-    width: 60%;
+.info-text {
+    width: 100%;
+    height: 60%;
     height: 100%;
+    font-family: 'PT Serif', serif;
+    font-weight: normal;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 20px;
+    text-align: justify;
+    line-height: 2;
+    align-self: center;
 }
 
-.info-img{
-    border: solid pink;
-    width: 60%;
-    height: 100%;
+.info-text h1 {
+   color: #00750b;
+   
+  font-size: 20px; 
+  margin-bottom: 10px; 
+  font-weight: normal;
 }
+
+.info-text h4 {
+  font-size: 15px; 
+  margin-bottom: 20px; 
+  font-weight: normal;
+
+}
+
+/* agregar min height - max height */
+.info-img {
+    width: 50%;
+    height: 50%;
+    display: flex;
+}
+
+.info-img img {
+    width: 100%; /* Ensure the image fills the container horizontally */
+    height: auto; /* Allow the image to scale proportionally */
+    align-self: center;
+}
+
+.green-link {
+    font-size: 17px;
+    color: #008000; 
+    text-decoration: none;
+}
+
+.green-link:hover {
+    color: #006400; 
+}
+
+.green-link img {
+    width: 25px; 
+    height: 25px; 
+    margin-left: 1px; 
+    vertical-align: middle; 
+}
+
 
 .footer{
     height: 10vh;
@@ -109,11 +215,16 @@ body{
 }
 
 .redes{
-    margin-top: -.5%;
+    margin-top: 1px;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 60%;
     height: 50%;
     gap: 1%;
+}
+
+.redes img {
+    width: 30px; 
+    height: auto; 
 }
