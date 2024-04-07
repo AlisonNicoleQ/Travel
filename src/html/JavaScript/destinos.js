@@ -139,7 +139,7 @@ function agregarItemAReserva(titulo, precio, imagenSrc){
     var nombresItemsReserva = itemsReserva.getElementsByClassName('reserva-item-titulo');
     for(var i=0;i < nombresItemsReserva.length;i++){
         if(nombresItemsReserva[i].innerText==titulo){
-            alert("El destino ya está en la lista");
+            alert("Esta opción ya ha sido seleccionada.");
             return;
         }
     }
