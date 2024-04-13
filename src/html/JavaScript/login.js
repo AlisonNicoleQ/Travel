@@ -48,6 +48,7 @@ document.getElementById('CreateAccountForm').addEventListener('submit', async (e
           clienteId = cliente.ID_cliente;
 
           console.log('Cliente Creado ID:', clienteId)
+          sessionStorage.setItem('clienteId', clienteId);
 
           // Poner los valores en el HTML
           document.getElementById("user-name").textContent = clienteName;
@@ -99,6 +100,7 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
             clienteId = cliente.ID_cliente;
 
             console.log('Cliente ID:', clienteId)
+            sessionStorage.setItem('clienteId', clienteId);
 
             // Poner los valores en el HTML
             document.getElementById("user-name").textContent = clienteName;
