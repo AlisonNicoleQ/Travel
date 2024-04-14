@@ -306,3 +306,10 @@ async function UpdatePref(preferences){
     }
 
 }
+
+//Funcion para eliminar el id de la sesion
+function Logout(){
+    sessionStorage.removeItem('clienteId');
+
+    console.log('Removed clienteId from session storage. Logged Out');
+}

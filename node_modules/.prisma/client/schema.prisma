@@ -73,6 +73,7 @@ model Pagos {
   ID_pago         Int      @id @default(autoincrement())
   ID_cliente      Int?
   ID_tipo_m       Int?
+  id_detalle_carrito Int?
   nombre_titular  String
   numero_tarjeta  String
   fecha_expiracion DateTime?
@@ -139,4 +140,24 @@ model Tipo_moneda {
 model Tipo_servicio {
   ID_tipo_s       Int      @id @default(autoincrement())
   Descripcion     String?
+}
+
+
+model DetalleCarrito{
+  id_detalle_carrito Int @id @default(autoincrement())
+  item               String
+  cantidad           Int
+  precio             Float
+  id_cliente         Int?
+  subtotal           Float
+}
+
+model HistorialCompra{
+  id_historial_compra Int @id @default(autoincrement())
+  id_cliente          Int?
+  fecha_compra        DateTime
+  precio              Float
+  subtotal            Float
+  cantidad            Int
+  items               String                
 }
