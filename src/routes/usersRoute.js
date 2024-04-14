@@ -138,7 +138,34 @@ router.put('/updatePreferences', async (req, res) => {
   }
 });
 
+/*
+====================================================================
+Agregar Carrito
+====================================================================
+*/
 
+// Agregar al carrito
+router.post('/addCarrito', async (req, res) => {
+  const { id_cliente, item, precio,  subtotal, cantidad} = req.body;
+
+  try {
+    const insertDetalleCarrito = await prisma.detalleCarrito.create({
+      data: {
+        id_cliente,
+        item,
+        precio,
+        subtotal,
+        cantidad
+      }
+    });
+
+    res.json(insertDetalleCarrito);
+    console.log('Se agrego al carrito:', insertDetalleCarrito);
+  } catch (error) {
+    console.error(`Error al isnertar al carrito: ${id_cliente}: ${error}`);
+    res.status(500).json({ error: 'Hubo un error insertando al carrito' });
+  }
+});
 
 
 export default router;

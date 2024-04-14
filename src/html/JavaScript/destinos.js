@@ -1,5 +1,6 @@
 //Variable 
 var reservaVisible = false;
+let storedClienteId = null;
 
 //Ayuda a que la pagina recarge primero
 if(document.readyState == 'loading'){
@@ -40,18 +41,61 @@ function ready(){
 
     //Btn pagar
     document.getElementsByClassName('btn-pagar')[0].addEventListener('click',pagarClicked)
+
+    //Conseguimos el ID del cliente
+    storedClienteId = sessionStorage.getItem('clienteId');
+        if (storedClienteId) {
+            console.log('Stored Cliente ID:', storedClienteId);
+            // Do something with the storedClienteId, like displaying it in the UI
+        } else {
+            console.log('No stored Cliente ID found.');
+            // Handle the case where the storedClienteId is null or undefined
+        }
 }
 
-function pagarClicked(){
-    alert("Gracias por reservar");
-    //oculta la pantalla de las reservas al terminar la accion
-    var reservaItems = document.getElementsByClassName('reserva-items')[0];
-    while (reservaItems.hasChildNodes()){
-        reservaItems.removeChild(reservaItems.firstChild)
-    }
-    actualizarTotalReserva();
-    ocultarReserva();
+async function pagarClicked() {
+    // Gather information about selected items
+    const items = document.querySelectorAll('.reserva-item');
+
+    const reservationData = [];
+
+    items.forEach(async item => {
+        const title = item.querySelector('.reserva-item-titulo').innerText;
+        const priceString = item.querySelector('.reserva-item-precio').innerText;
+        const quantityString = item.querySelector('.reserva-item-cantidad').value;
+
+        const price = parseFloat(priceString.replace('₡', '').replace(',', ''));
+        const subtotal = price * quantityString;
+        const quantity = parseInt(item.querySelector('.reserva-item-cantidad').value);
+
+        console.log("Price" + price);
+        console.log("subtotal" + subtotal);
+
+
+        reservationData.push({ title, priceString, quantityString });
+
+        // Send reservation data to the server
+        const res = await fetch('/api/addCarrito', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({id_cliente: parseInt(storedClienteId), item: title, precio: price, cantidad: quantity, subtotal: subtotal})
+        })
+        if(res.ok){
+            const data = await res.json();
+            console.log('Item added to cart:', data);
+        }
+        else{
+            const errorData = await res.json();
+            console.error('Error adding item to cart:', errorData);
+        }
+    });
+
+    // Print the selected items before sending to the server
+    console.log('Selected Items:', reservationData);
 }
+
 //Funcion que controla el boton clickeado de agregar a la lista de resevas
 function agregarReservaClicked(event){
     var button = event.target;
