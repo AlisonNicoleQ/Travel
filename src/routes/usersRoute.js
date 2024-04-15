@@ -167,5 +167,24 @@ router.post('/addCarrito', async (req, res) => {
   }
 });
 
+//select carrito where id == cliente id
+router.put('/getCarrito', async (req, res) => {
+  const { id_cliente } = req.body;
+
+  try {
+    const getClienteCarrito = await prisma.detalleCarrito.findUnique({
+      where: {
+        id_cliente 
+      },
+    });
+
+    res.json(getClienteCarrito);
+    console.log('Carrito de cliente:', getClienteCarrito);
+  } catch (error) {
+    console.error(`Error al conseguir el carrito: ${id_cliente}: ${error}`);
+    res.status(500).json({ error: 'Error al conseguir el carrito' });
+  }
+});
+
 
 export default router;
