@@ -12,7 +12,33 @@
             <!-- FORMULARIO -->
             <div class="col-4">
                 <h1 class="text-primary">Carrito</h1><hr>
+                
+                
+                <form>
+                    <div class="mb-3">
+                        <label for="cardNumber" class="form-label">Numero de la Tarjeta</label>
+                        <input type="text" class="form-control" id="cardNumber" placeholder="0000 0000 0000 0000">
+                    </div>
+                    <div class="mb-3">
+                        <label for="cardName" class="form-label">Nombre en la Tarjeta</label>
+                        <input type="text" class="form-control" id="cardName" placeholder="Nombre">
+                    </div>
+                    <div class="mb-3">
+                        <label for="expiryDate" class="form-label">Fecha Vencimiento</label>
+                        <input type="text" class="form-control" id="expiryDate" placeholder="00/00">
+                    </div>
+                    <div class="mb-3">
+                        <label for="cvv" class="form-label">CVV</label>
+                        <input type="text" class="form-control" id="cvv" placeholder="***">
+                    </div>
+                    <div class="mb-3">
+                        <label for="direccion" class="form-label">Direccion</label>
+                        <input type="text" class="form-control" id="direccion" placeholder="San jose">
+                    </div>
 
+                    <h3 id="monto-total">Total: </h3>
+                </form>
+                <button class="btn btn-primary" id="btnPagar">Pagar</button>
             </div>
             <!-- TABLA -->
             <div class="col-8">

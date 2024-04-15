@@ -193,7 +193,7 @@ router.put('/getCarrito', async (req, res) => {
   }
 });
 
-//borrar del carrito
+//borrar item del carrito
 router.delete('/deleteCarrito', async (req, res) => {
   const { id_detalle_carrito } = req.body;
 
@@ -211,6 +211,52 @@ router.delete('/deleteCarrito', async (req, res) => {
     res.status(500).json({ error: 'Hubo un error borrando del carrito' });
   }
 });
+
+//limpiar carrito
+router.delete('/clearCarrito', async (req, res) => {
+  const { id_detalle_carrito } = req.body;
+
+  try {
+    const deleteDetalleCarrito = await prisma.detalleCarrito.delete();
+
+    res.json(deleteDetalleCarrito);
+    console.log('Se borro del carrito:', deleteDetalleCarrito);
+  } catch (error) {
+    console.error(`Error al borrar del carrito: ${id_detalle_carrito}: ${error}`);
+    res.status(500).json({ error: 'Hubo un error borrando del carrito' });
+  }
+});
+
+
+/*
+====================================================================
+HIstorial Compra
+====================================================================
+*/
+
+router.post('/addHistorial', async (req, res) => {
+  const { id_cliente, items, precio,  subtotal, cantidad, fecha_compra} = req.body;
+
+  try {
+    const insertDetalleCarrito = await prisma.historialCompra.create({
+      data: {
+        id_cliente,
+        items,
+        precio,
+        subtotal,
+        cantidad,
+        fecha_compra
+      }
+    });
+
+    res.json(insertDetalleCarrito);
+    console.log('Se agrego al historial:', insertDetalleCarrito);
+  } catch (error) {
+    console.error(`Error al isnertar al historial: ${id_cliente}: ${error}`);
+    res.status(500).json({ error: 'Hubo un error insertando al historial' });
+  }
+});
+
 
 
 export default router;
