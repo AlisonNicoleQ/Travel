@@ -74,7 +74,7 @@ async function pagarClicked() {
 
         reservationData.push({ title, priceString, quantityString });
 
-        // Send reservation data to the server
+        // mandamos los items seleccionados a la base de datos a la tabla de detalle carrito
         const res = await fetch('/api/addCarrito', {
             method: 'POST',
             headers: {
@@ -83,6 +83,8 @@ async function pagarClicked() {
             body: JSON.stringify({id_cliente: parseInt(storedClienteId), item: title, precio: price, cantidad: quantity, subtotal: subtotal})
         })
         if(res.ok){
+
+            //si es exitoso, eliminamos todos los elemenos de la lista de reserva
             const data = await res.json();
             console.log('Item added to cart:', data);
 
@@ -91,6 +93,7 @@ async function pagarClicked() {
                 reservaItems.removeChild(reservaItems.firstChild)
             }
 
+            //Actualizamos el UI
             actualizarTotalReserva();
             ocultarReserva();
         }

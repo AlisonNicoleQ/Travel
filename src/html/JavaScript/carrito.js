@@ -13,6 +13,7 @@ if(document.readyState == 'loading'){
 }
 
 async function GetCartItems(){
+    
     //traemos el cliente id del storage
     storedClienteId = sessionStorage.getItem('clienteId');
     if (storedClienteId) {
@@ -36,17 +37,17 @@ async function GetCartItems(){
                     total += item.subtotal;
                 });
 
-                // Set the total amount in the UI
+                // Ponemos el valor en el label
                 lblTotal.innerText = "Total: " + total;
 
             } else {
-                throw new Error('Failed to retrieve cart items');
+                throw new Error('Error interno en base de datos.');
             }
         } catch (error) {
-            console.error('Error fetching cart items:', error);
+            console.error('Error al conseguir los items del carrito:', error);
         }
     } else {
-        console.log('No stored Cliente ID found.');
+        console.log('No hay Id de cliente almacenado.');
     }
 }
 
@@ -105,13 +106,17 @@ async function borrarItemCarrito(id) {
     }
 }
 
+//esta es la funcion que se encarga de procesar el pago
 async function processPayment(cartItems) {
     try {
 
         let today = new Date();
         let fecha = today.toISOString();
 
+        // procesamos cada item del carrito
         const promises = cartItems.map(async (element) => {
+            
+            //enviamos los datos a la base de datos a la tabla de Historialcarrito
             const response = await fetch('/api/addHistorial', {
                 method: 'POST',
                 headers: {
@@ -120,6 +125,7 @@ async function processPayment(cartItems) {
                 body: JSON.stringify({ id_cliente: parseInt(storedClienteId), items: element.item, precio: element.precio, cantidad: element.cantidad, subtotal: element.subtotal, fecha_compra: fecha})
             });
 
+            //si la respuesta es exitosa, borramos el o los item(s) del carrito
             if (response.ok) {
                 console.log('Historial de compra:', response);
 
@@ -133,8 +139,12 @@ async function processPayment(cartItems) {
 
                 if (deleteDetalleCarrito.ok) 
                 {
+                    //si se borro exitosamente el item del carrito, actualizamos la tabla
                     console.log('Item borrado:', element.id_detalle_carrito);
                     GetCartItems();
+
+
+                    //retornamos un success que en el metodo de handlePayment hace saber que fue exitoso todo
                     return { success: true };
                 } else 
                 {
@@ -146,10 +156,10 @@ async function processPayment(cartItems) {
             }
         });
 
-        // Wait for all fetch requests to complete
+        // esperamos a que todos los requests terminen
         const results = await Promise.all(promises);
 
-        // Check if any request failed
+        // Revisamos el resultado antes de retornar
         if (results.some(result => !result.success)) {
             return { success: false };
         } else {
