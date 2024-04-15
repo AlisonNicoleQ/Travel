@@ -1,3 +1,4 @@
+
 let itemsCarrito = {};
 
 if(document.readyState == 'loading'){
@@ -23,6 +24,7 @@ async function GetCartItems(){
             if (response.ok) {
                 const data = await response.json();
                 itemsCarrito = data; // Store retrieved cart items in itemsCarrito object
+                cargarTabla(itemsCarrito);
                 console.log('Cart items retrieved:', itemsCarrito);
             } else {
                 throw new Error('Failed to retrieve cart items');
@@ -44,21 +46,20 @@ var idSeleccionado = null;
 
 
 // 3. METODOS
-const cargarTabla = ()=>{
-    let filas = "";
-    
+const cargarTabla = (itemsCarrito)=>{
+    let filas = "";   
 
-    itemsCarrito.forEach((item, indice)=>{
+    itemsCarrito.forEach((item)=>{
         filas += `
             <tr>
-                <td>${item.nombre}</td>
-                <td>${item.apellido}</td>
-                <td>${item.direccion}</td>
-                <td>${item.correo}</td>
+                <td>${item.item}</td>
+                <td>${item.precio}</td>
+                <td>${item.cantidad}</td>
+                <td>${item.subtotal}</td>
                 <td>
 
                 <td>
-                    <button type="button" class="btn btn-outline-danger" onclick="borraPersona(${ indice })">Borrar</button>
+                    <button type="button" class="btn btn-outline-danger" onclick="borrarItemCarrito(${ item.id_detalle_carrito })">Borrar</button>
                 </td>
             </tr> 
                 ` ;
@@ -66,11 +67,29 @@ const cargarTabla = ()=>{
     tblCarrito.innerHTML = filas;
 }
 
-cargarTabla();
-
-function borraPersona(id) {
+async function borrarItemCarrito(id) {
     if(confirm("¿Desea borrar el registro?")){
-        itemsCarrito.splice(id,1)
-        cargarTabla();
+        try{
+            const res = await fetch('/api/deleteCarrito', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id_detalle_carrito: id })
+            })
+
+            if(res.ok){
+                console.log('Item borrado:', id);
+                GetCartItems();
+            }
+            else{
+                throw new Error('Error borrando item');
+            }
+            
+        }
+        catch(error){
+            console.error('Error borrando item:', error);
+        }
+        
     }
 }

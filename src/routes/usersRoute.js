@@ -172,10 +172,17 @@ router.put('/getCarrito', async (req, res) => {
   const { id_cliente } = req.body;
 
   try {
-    const getClienteCarrito = await prisma.detalleCarrito.findUnique({
+    const getClienteCarrito = await prisma.detalleCarrito.findMany({
       where: {
         id_cliente 
       },
+      select: {
+        item: true,
+        precio: true,
+        cantidad: true,
+        subtotal: true,
+        id_detalle_carrito: true
+      }
     });
 
     res.json(getClienteCarrito);
@@ -183,6 +190,25 @@ router.put('/getCarrito', async (req, res) => {
   } catch (error) {
     console.error(`Error al conseguir el carrito: ${id_cliente}: ${error}`);
     res.status(500).json({ error: 'Error al conseguir el carrito' });
+  }
+});
+
+//borrar del carrito
+router.delete('/deleteCarrito', async (req, res) => {
+  const { id_detalle_carrito } = req.body;
+
+  try {
+    const deleteDetalleCarrito = await prisma.detalleCarrito.delete({
+      where: {
+        id_detalle_carrito
+      }
+    });
+
+    res.json(deleteDetalleCarrito);
+    console.log('Se borro del carrito:', deleteDetalleCarrito);
+  } catch (error) {
+    console.error(`Error al borrar del carrito: ${id_detalle_carrito}: ${error}`);
+    res.status(500).json({ error: 'Hubo un error borrando del carrito' });
   }
 });
 

@@ -85,15 +85,20 @@ async function pagarClicked() {
         if(res.ok){
             const data = await res.json();
             console.log('Item added to cart:', data);
+
+            var reservaItems = document.getElementsByClassName('reserva-items')[0];
+            while (reservaItems.hasChildNodes()){
+                reservaItems.removeChild(reservaItems.firstChild)
+            }
+
+            actualizarTotalReserva();
+            ocultarReserva();
         }
         else{
             const errorData = await res.json();
             console.error('Error adding item to cart:', errorData);
         }
-    });
-
-    // Print the selected items before sending to the server
-    console.log('Selected Items:', reservationData);
+    });    
 }
 
 //Funcion que controla el boton clickeado de agregar a la lista de resevas
