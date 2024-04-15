@@ -11,10 +11,9 @@
         <div class="row">
             <!-- FORMULARIO -->
             <div class="col-4">
-                <h1 class="text-primary">Carrito</h1><hr>
+                <h1 class="text-primary">Carrito</h1><hr>               
                 
-                
-                <form>
+                <form id="payment">
                     <div class="mb-3">
                         <label for="cardNumber" class="form-label">Numero de la Tarjeta</label>
                         <input type="text" class="form-control" id="cardNumber" placeholder="0000 0000 0000 0000">
@@ -36,9 +35,11 @@
                         <input type="text" class="form-control" id="direccion" placeholder="San jose">
                     </div>
 
-                    <h3 id="monto-total">Total: </h3>
+                    <h3 id="monto-total">Total: </h3>                    
                 </form>
+
                 <button class="btn btn-primary" id="btnPagar">Pagar</button>
+                
             </div>
             <!-- TABLA -->
             <div class="col-8">

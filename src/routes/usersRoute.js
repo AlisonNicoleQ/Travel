@@ -230,7 +230,7 @@ router.delete('/clearCarrito', async (req, res) => {
 
 /*
 ====================================================================
-HIstorial Compra
+Historial Compra
 ====================================================================
 */
 
@@ -257,6 +257,36 @@ router.post('/addHistorial', async (req, res) => {
   }
 });
 
+/*
+====================================================================
+Pago
+====================================================================
+*/
+
+router.post('/addPago', async (req, res) => {
+  const { ID_cliente, ID_tipo_m, id_detalle_carrito,  nombre_titular, numero_tarjeta, fecha_expiracion, cvv, direccion } = req.body;
+
+  try {
+    const insertPago = await prisma.pagos.create({
+      data: {
+        ID_cliente,
+        ID_tipo_m,
+        id_detalle_carrito,
+        nombre_titular,
+        numero_tarjeta,
+        fecha_expiracion,
+        cvv,
+        direccion
+      }
+    });
+
+    res.json(insertPago);
+    console.log('Se ha efectuado el pago:', insertPago);
+  } catch (error) {
+    console.error(`Error al pagar: ${ID_cliente}: ${error}`);
+    res.status(500).json({ error: 'Hubo un error al insertar pago' });
+  }
+});
 
 
 export default router;

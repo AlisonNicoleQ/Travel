@@ -122,7 +122,25 @@ async function processPayment(cartItems) {
 
             if (response.ok) {
                 console.log('Historial de compra:', response);
-                return { success: true };
+
+                const deleteDetalleCarrito = await fetch('/api/deleteCarrito', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ id_detalle_carrito: element.id_detalle_carrito })
+                });
+
+                if (deleteDetalleCarrito.ok) 
+                {
+                    console.log('Item borrado:', element.id_detalle_carrito);
+                    GetCartItems();
+                    return { success: true };
+                } else 
+                {
+                    return { success: false };
+                }
+                
             } else {
                 return { success: false };
             }
@@ -145,13 +163,34 @@ async function processPayment(cartItems) {
 
 
 async function handlePayment() {
-    // Retrieve stored clienteId from sessionStorage
+
+    //guardamos los valores de cada input
+    const cardNumber = document.getElementById('cardNumber').value;
+    const cardName = document.getElementById('cardName').value;
+    let expiryDate = document.getElementById('expiryDate').value;
+    const cvv = document.getElementById('cvv').value;
+    const direccion = document.getElementById('direccion').value;
+
+
+    //si estan vaios, retornamos y damos un error
+    if (cardNumber.trim() === '' || cardName.trim() === '' || expiryDate.trim() === '' || cvv.trim() === '' || direccion.trim() === '') {
+        alert('Recuerde llenar los detalles de la tarjeta.');
+        return;
+    }  
+
+    const year = new Date().getFullYear();
+    expiryDate = expiryDate.split('/');
+    
+    //convertimos la fecha de expiracion a formato de fecha
+    const fechaExpConvert = new Date(`${year}-${expiryDate[0]}-${expiryDate[1]}`);
+
+
     let storedClienteId = sessionStorage.getItem('clienteId');
     if (storedClienteId) {
         console.log('Stored Cliente ID:', storedClienteId);
 
         try {
-            // Fetch cart items for the client from the server
+            // buscamos los items del carrito
             const response = await fetch('/api/getCarrito', {
                 method: 'PUT',
                 headers: {
@@ -162,26 +201,48 @@ async function handlePayment() {
             if (response.ok) {
                 const cartItems = await response.json();
 
-                // Process payment using cart items data
-                const paymentResult = await processPayment(cartItems);
+                const id_detalle_carritoArray = cartItems.map((item) => item.id_detalle_carrito);
 
-                // Handle payment result
-                if (paymentResult.success) {
-                    // Payment successful, display success message
-                    alert('Payment successful!');
-                } else {
-                    // Payment failed, display error message
-                    alert('Payment failed. Please try again.');
-                }
-            } else {
-                throw new Error('Failed to retrieve cart items');
-            }
+                for(const id_detalle_carrito of id_detalle_carritoArray){
+                    //agregar los detalles a tabla pago. si es exitoso seguimos procesando el pago.
+                    const res = await fetch('/api/addPago', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }, 
+                        body: JSON.stringify({ ID_cliente: parseInt(storedClienteId), ID_tipo_m: null, id_detalle_carrito: id_detalle_carrito, numero_tarjeta: cardNumber, nombre_titular: cardName, fecha_expiracion: fechaExpConvert, cvv: parseInt(cvv), direccion: direccion})
+                    });
+
+                    if (!res.ok) {
+                        //hubo un error con el pago en base de datos, retornamos un error
+                        throw new Error('No se pudo procesar el pago.');
+                    }
+                    else{
+                        //si no hubo error, seguimos con el proceso de pago
+                        //verificamos si el "processPayment" es exitoso
+                        const paymentResult = await processPayment(cartItems);
+
+                        // vemo si es exitoso o no
+                        if (paymentResult.success) {
+                            
+                            alert('Pago exitoso!');
+                        } else {
+                            
+                            alert('Pago fallido!');
+                        }
+                    }
+                }                
+                
+            } 
+            else{ throw new Error('Error consiguiendo los items del carrito'); }
+
+
         } catch (error) {
-            console.error('Error processing payment:', error);
-            alert('Error processing payment. Please try again.');
+            console.error('Error procesando pago:', error);
+            alert('Error procesando pago. Intente de nuevo.');
         }
     } else {
         console.log('No stored Cliente ID found.');
-        // Handle the case where the storedClienteId is null or undefined
+        alert('Recuerde iniciar sesión para poder realizar la compra.');
     }
 }
