@@ -1,0 +1,191 @@
+/*General*/
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&family=Titillium+Web:wght@200;300;400;600;700&display=swap');
+*{
+    margin: 0;
+    padding:0;
+    font-family: "Open Sans", sans-serif;
+}
+
+/*Header: Portada de sitio web*/
+header{
+    background: url(https://cdn.getyourguide.com/img/location/60b48e471a7b0.jpeg/88.jpg);
+    background-size: cover;
+    background-position:center;
+    height: 300px;
+    position: relative; /* Para poder posicionar el título correctamente */
+}
+header h1{
+    text-align: center;
+    font-size: 35px;
+    color: #fff;
+    padding: 30px 0;
+    position: absolute; /* Para posicionar el título sobre el fondo */
+    top: 50%; /* Ajuste de posición vertical */
+    left: 50%; /* Ajuste de posición horizontal */
+    transform: translate(-50%, -50%); /* Para centrar el título */
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo negro translúcido */
+    padding: 20px; /* Ajuste de espaciado interno */
+    border-radius: 10px; /* Bordes redondeados */
+}
+
+.contenedor{
+    max-width: 1200px;
+    padding: 10px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    /* Se oculta .contenedor */
+    contain: paint;
+}
+
+/* Contenedor de Reservas */
+.contenedor-reservas {
+    margin-top: 30px;
+}
+
+#lista-reservas {
+    list-style-type: none;
+    padding: 0;
+}
+
+.reserva-item {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 10px;
+    position: relative;
+    border-radius: 5px;
+}
+
+.reserva-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.reserva-item .titulo-reserva {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.reserva-item .precio-reserva {
+    font-size: 16px;
+    color: #666;
+}
+
+.reserva-item .eliminar-reserva {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Apuntes y reseñas */
+.reserva-item .apuntes {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.reserva-item .reseña {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Formulario de Pago */
+.formulario-pago {
+    flex: 0 0 40%; /* Ajuste del ancho del formulario de pago */
+    margin-right: 20px;
+}
+
+#formularioPago {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+    max-width: 400px;
+    margin: auto;
+}
+
+#formularioPago .input-group {
+    margin-bottom: 10px;
+}
+
+#formularioPago .input-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#formularioPago .input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+#formularioPago button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+#formularioPago button:hover {
+    background-color: #39b300;
+}
+
+/* Carrito */
+.carrito {
+    flex: 0 0 55%; /* Ajuste del ancho del carrito */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+    padding: 20px;
+}
+
+.carrito h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#tblCarrito {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#tblCarrito thead {
+    background-color: #22a311;
+    color: #fff;
+}
+
+#tblCarrito th, #tblCarrito td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#tblCarrito th:last-child, #tblCarrito td:last-child {
+    text-align: center;
+}
+
+#tblCarrito tr:last-child td {
+    border-bottom: none;
+}

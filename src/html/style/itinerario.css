@@ -1,0 +1,102 @@
+/*General*/
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&family=Titillium+Web:wght@200;300;400;600;700&display=swap');
+*{
+    margin: 0;
+    padding:0;
+    font-family: "Open Sans", sans-serif;
+}
+
+/*Header: Portada de sitio web*/
+header{
+    background: url(https://mediaim.expedia.com/destination/1/f3b9be83c503def37204558842283d71.jpg?impolicy=fcrop&w=1040&h=580&q=mediumHigh);
+    background-size: cover;
+    background-position:center;
+    height: 300px;
+    position: relative; /* Para poder posicionar el título correctamente */
+}
+header h1{
+    text-align: center;
+    font-size: 35px;
+    color: #fff;
+    padding: 30px 0;
+    position: absolute; /* Para posicionar el título sobre el fondo */
+    top: 50%; /* Ajuste de posición vertical */
+    left: 50%; /* Ajuste de posición horizontal */
+    transform: translate(-50%, -50%); /* Para centrar el título */
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo negro translúcido */
+    padding: 20px; /* Ajuste de espaciado interno */
+    border-radius: 10px; /* Bordes redondeados */
+}
+
+.contenedor{
+    max-width: 1200px;
+    padding: 10px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    /* Se oculta .contenedor */
+    contain: paint;
+}
+
+/* Contenedor de Reservas */
+.contenedor-reservas {
+    margin-top: 30px;
+}
+
+#lista-reservas {
+    list-style-type: none;
+    padding: 0;
+}
+
+.reserva-item {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 10px;
+    position: relative;
+    border-radius: 5px;
+}
+
+.reserva-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.reserva-item .titulo-reserva {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.reserva-item .precio-reserva {
+    font-size: 16px;
+    color: #666;
+}
+
+.reserva-item .eliminar-reserva {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Apuntes y reseñas */
+.reserva-item .apuntes {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.reserva-item .reseña {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
