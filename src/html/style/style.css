@@ -21,6 +21,7 @@ a {
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
+    z-index: 100;
 }
 
 .textoNavBar {
@@ -110,6 +111,7 @@ a {
 .item h4 {
     margin-top: 5px;
     color: #666;
+    text-align: justify;
 }
 
 .section-info {
@@ -132,8 +134,9 @@ a {
 }
 
 .info-text {
-    text-align: left; /* Puedes cambiar a 'right' si quieres alinear a la derecha */
-    margin-left: 20px; /* Añadiendo margen izquierdo a los textos */
+    text-align: justify; /* Puedes cambiar a 'right' si quieres alinear a la derecha */
+    margin-left: 20px;
+    margin-right: 20px; /* Añadiendo margen izquierdo a los textos */
 }
 
 .info-img img {
