@@ -2,7 +2,11 @@
 let itemsCarrito = {};
 const lblTotal = document.getElementById('monto-total');
 const btnPagar = document.getElementById('btnPagar');
-btnPagar.addEventListener('click', handlePayment);
+btnPagar.addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default button click behavior
+    handlePayment(); // Call your payment handling function
+    btnPagar.removeEventListener('click', this);
+});
 let storedClienteId = null;
 
 if(document.readyState == 'loading'){
@@ -210,7 +214,7 @@ async function handlePayment() {
                 },
                 body: JSON.stringify({ id_cliente: parseInt(storedClienteId) })
             });
-            
+
             if (response.ok) {
                 const cartItems = await response.json();
 
@@ -236,9 +240,9 @@ async function handlePayment() {
                         const paymentResult = await processPayment(cartItems);
 
                         // vemo si es exitoso o no
-                        if (paymentResult.success) {
-                            
+                        if (paymentResult.success) {                            
                             alert('Pago exitoso!');
+                            window.location.reload();
                         } else {
                             
                             alert('Pago fallido!');
