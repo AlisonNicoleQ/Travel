@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Alojamiento</title>
+    <link rel="stylesheet" href="../style/hoteles.css">
+</head>
+<body>
+
+<header>
+    <h1>Reserva tu Alojamiento</h1>
+</header>
+
+<section class="contenedor">
+    <!-- Contenedor de Alojamientos -->
+    <div class="contenedor-items">
+
+        <!-- 1er Hotel -->
+        <div class="item">
+            <span class="titulo-item">Hotel y Club Punta Leona</span>
+            <img src="../style/imgHoteles/punta-leona-hotel.jpg" alt="" class="img-item">
+            <span class="precio-item">₡500000</span>
+            <button class="boton-item" onclick="agregarReservaClicked('Hotel y Club Punta Leona', '₡500000')">Reservar</button>
+        </div>
+
+        <!-- 2do Hotel -->
+        <div class="item">
+            <span class="titulo-item">Los Suenos Resort & Marina</span>
+            <img src="../style/imgHoteles/los-suenos-beach-club.jpg" alt="" class="img-item">
+            <span class="precio-item">₡600000</span>
+            <button class="boton-item" onclick="agregarReservaClicked('Los Suenos Resort & Marina', '₡600000')">Reservar</button>
+        </div>
+
+        <!-- 3er Hotel -->
+        <div class="item">
+            <span class="titulo-item">Camino Verde</span>
+            <img src="../style/imgHoteles/Camino verde.jpg" alt="" class="img-item">
+            <span class="precio-item">₡400000</span>
+            <button class="boton-item" onclick="agregarReservaClicked('Camino Verde', '₡400000')">Reservar</button>
+        </div>
+
+        <!-- 4to Hotel -->
+        <div class="item">
+            <span class="titulo-item">Jaco Beach All Inclusive Resort</span>
+            <img src="../style/imgHoteles/Jaco Beach Resort.jpg" alt="" class="img-item">
+            <span class="precio-item">₡650000</span>
+            <button class="boton-item" onclick="agregarReservaClicked('Jaco Beach All Inclusive Resort', '₡650000')">Reservar</button>
+        </div>
+
+        <!-- 5to Hotel -->
+        <div class="item">
+            <span class="titulo-item">The Falls Resort</span>
+            <img src="../style/imgHoteles/The Falls Resort.jpg" alt="" class="img-item">
+            <span class="precio-item">₡400000</span>
+            <button class="boton-item" onclick="agregarReservaClicked('The Falls Resort', '₡400000')">Reservar</button>
+        </div>
+
+        <!-- 6to Hotel -->
+        <div class="item">
+            <span class="titulo-item">Los Pinos</span>
+            <img src="../style/imgHoteles/Los Pinos.jpg" alt="" class="img-item">
+            <span class="precio-item">₡250000</span>
+            <button class="boton-item" onclick="agregarReservaClicked('Los Pinos', '₡250000')">Reservar</button>
+        </div>
+
+        <!-- 7mo Hotel -->
+        <div class="item">
+            <span class="titulo-item">Beach Break Resort</span>
+            <img src="../style/imgHoteles/beach-break-resort.jpg" alt="" class="img-item">
+            <span class="precio-item">₡450000</span>
+            <button class="boton-item" onclick="agregarReservaClicked('Beach Break Resort', '₡450000')">Reservar</button>
+        </div>
+
+        <!-- 8vo Hotel -->
+        <div class="item">
+            <span class="titulo-item">Hotel Villa Caletas</span>
+            <img src="../style/imgHoteles/pool-at-villa-caletas.jpg" alt="" class="img-item">
+            <span class="precio-item">₡950000</span>
+            <button class="boton-item" onclick="agregarReservaClicked('Hotel Villa Caletas', '₡950000')">Reservar</button>
+        </div>
+    </div>
+    
+    <!-- Lista de Reservas -->
+    <div class="reserva" id="reserva">
+        <div class="header-reserva">
+            <h2>Tu Reserva</h2>
+        </div>
+
+        <div class="reserva-items">
+
+        </div>
+        <div class="reserva-total">
+            <div class="fila">
+                <strong>Total</strong>
+                <span class="reserva-precio-total">
+                    ₡120000
+                </span>
+            </div>
+            <button class="btn-pagar">Pagar <i class="fa-solid fa-bag-shopping"></i> </button>
+        </div>
+    </div>
+</section>
+
+<script src="../JavaScript/hoteles.js" async></script>
+</body>
+</html>
