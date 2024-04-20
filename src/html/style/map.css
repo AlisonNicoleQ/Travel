@@ -1,0 +1,51 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    height: 100%;
+}
+
+#filters {
+    width: 200px;
+    background-color: #ecf8ec; 
+    padding: 20px;
+}
+
+#map { 
+    flex: 1;
+    height: 100%; 
+}
+
+.map-container {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#place-info {
+    width: 300px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 20px;
+    top: 20px;
+    right: 20px;
+}
+
+#place-info h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+#place-info img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+}
+
+#place-info button {
+    margin-top: 1rem;
+}

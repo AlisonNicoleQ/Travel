@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <!-- Agregar Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../style/map.css">
+</head>
+<body class="h-screen flex flex-col relative">
+    <div id="map-container" class="relative flex-grow flex justify-between">
+        <div id="filters" class="bg-green-200 p-4 shadow-lg rounded mr-4">
+            <h2 class="text-lg font-bold mb-4">Filtros</h2>
+            <label class="block mb-2">
+                <input type="checkbox" name="tour" value="tour" class="mr-2">
+                <span class="text-sm">Tours</span>
+            </label>
+            <label class="block mb-2">
+                <input type="checkbox" name="hotel" value="hotel" class="mr-2">
+                <span class="text-sm">Hoteles</span>
+            </label>
+            <label class="block mb-2">
+                <input type="checkbox" name="attraction" value="attraction" class="mr-2">
+                <span class="text-sm">Atracciones Turísticas</span>
+            </label>
+            <button onclick="filterMarkers()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full transition-colors block mx-auto">Filtrar</button>
+        </div>
+        <div id="map" class="w-3/4 h-full"></div>
+
+        <div id="place-info" class="hidden bg-white p-4 absolute top-0 right-0 z-10">
+            <h2 id="place-name" class="text-lg font-semibold mb-2"></h2>
+            <div id="place-description" class="mb-2"></div>
+            <img id="place-photo" src="" alt="Photo" class="w-full mb-2">
+            <button id="close-info" class="bg-gray-300 px-2 py-1 rounded">Cerrar</button>
+        </div>
+        
+    </div>
+    <script src="https://unpkg.com/leaflet"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../JavaScript/map.js"></script>
+</body>
+</html>
