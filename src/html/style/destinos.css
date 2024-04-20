@@ -19,6 +19,13 @@ header h1{
     font-size: 35px;
     color: #fff;
     padding: 30px 0;
+    position: absolute; 
+    top: 20%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px; 
+    border-radius: 10px; 
 }
 .contenedor{
     max-width: 1200px;

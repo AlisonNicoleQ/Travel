@@ -1,0 +1,57 @@
+/*General*/
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&family=Titillium+Web:wght@200;300;400;600;700&display=swap');
+*{
+    margin: 0;
+    padding:0;
+    font-family: "Open Sans", sans-serif;
+}
+
+/*Header: Portada de sitio web*/
+header{
+    background: url(https://greenwaytours.com/wp-content/uploads/2018/04/puntarenas-costa-rica.jpg);
+    background-size: cover;
+    background-position:center;
+    height: 300px;
+    position: relative; /* Para poder posicionar el título correctamente */
+}
+header h1{
+    text-align: center;
+    font-size: 35px;
+    color: #fff;
+    padding: 30px 0;
+    position: absolute; /* Para posicionar el título sobre el fondo */
+    top: 50%; /* Ajuste de posición vertical */
+    left: 50%; /* Ajuste de posición horizontal */
+    transform: translate(-50%, -50%); /* Para centrar el título */
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo negro translúcido */
+    padding: 20px; /* Ajuste de espaciado interno */
+    border-radius: 10px; /* Bordes redondeados */
+}
+
+.contenedor{
+    max-width: 1200px;
+    padding: 10px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    /* Se oculta .contenedor */
+    contain: paint;
+}
+
+/*Contenedor de Calendario*/
+#calendario {
+    margin-top: 30px;
+}
+
+/*Responsive */
+@media screen and (max-width: 850px) {
+    .contenedor {
+      display: block;
+    }
+    .contenedor-items{
+        width: 100% !important;
+    }
+    .reserva{
+        width: 100%;
+    }
+  }
