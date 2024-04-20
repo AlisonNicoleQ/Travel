@@ -197,9 +197,11 @@ async function handlePayment() {
 
     let storedClienteId = sessionStorage.getItem('clienteId');
     if (storedClienteId) {
-        console.log('Stored Cliente ID:', storedClienteId);
+        
+         console.log('Id Cliente conseguido:', storedClienteId);
 
         try {
+            console.log('Procesando pago...');
             // buscamos los items del carrito
             const response = await fetch('/api/getCarrito', {
                 method: 'PUT',
@@ -208,6 +210,7 @@ async function handlePayment() {
                 },
                 body: JSON.stringify({ id_cliente: parseInt(storedClienteId) })
             });
+            
             if (response.ok) {
                 const cartItems = await response.json();
 
@@ -248,7 +251,7 @@ async function handlePayment() {
 
 
         } catch (error) {
-            console.error('Error procesando pago:', error);
+            console.error('Error procesando pago:', error); //error thrown here
             alert('Error procesando pago. Intente de nuevo.');
         }
     } else {

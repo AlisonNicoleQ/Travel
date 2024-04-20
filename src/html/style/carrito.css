@@ -154,6 +154,9 @@ header h1{
 
 /* Carrito */
 .carrito {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     flex: 0 0 55%; /* Ajuste del ancho del carrito */
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -188,4 +191,9 @@ header h1{
 
 #tblCarrito tr:last-child td {
     border-bottom: none;
+}
+
+#monto-total{
+    align-self: flex-end;
+    margin-right: 5%;
 }

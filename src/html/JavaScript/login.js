@@ -8,6 +8,7 @@ let clienteId = null;
 
 document.addEventListener('DOMContentLoaded', async () => { 
   // comienza "escondido"
+  console.log('DOMContentLoaded');
   userProfile.classList.add('hide');
   createAcc.classList.add('hide');
 });
