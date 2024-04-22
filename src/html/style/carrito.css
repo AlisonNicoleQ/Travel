@@ -1,11 +1,46 @@
-/*General*/
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&family=Titillium+Web:wght@200;300;400;600;700&display=swap');
-*{
+* {
     margin: 0;
-    padding:0;
-    font-family: "Open Sans", sans-serif;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #fff;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.section-navBar {
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    z-index: 100;
+}
+
+.textoNavBar {
+    font-size: 24px;
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+.navBar-items {
+    display: flex;
+}
+
+.navBar-items a {
+    margin-right: 10px;
+}
+
+.navBar-items a img {
+    width: 24px;
+}
 /*Header: Portada de sitio web*/
 header{
     background: url(https://cdn.getyourguide.com/img/location/60b48e471a7b0.jpeg/88.jpg);

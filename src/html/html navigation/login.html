@@ -108,33 +108,33 @@
             <!-- Aqui se van a poner los settings que desea el usuario, se van a guardar en base de datos de forma de array (espero) -->
             <div class="user-settings">
                 <h2>User Preferences</h2>
-
-                <h3>Notificaciones y Promociones</h3>
+            
                 <form>
-                    <input type="checkbox" id="notificaciones" name="notificaciones" value="yes">
-                    <label for="notificaciones">Recibir Notificaciones</label>
-                    <br>      
-
-                    <h3>Idioma</h3>
-
-                    
-                    <input type="radio" id="idioma1" name="idioma" value="1"> <!-- Ingles = 1 -->
-                    <label for="idioma1">Ingles</label><br> 
-                    <input type="radio" id="idioma2" name="idioma" value="2"> <!-- Espanol = 2 -->
-                    <label for="idioma2">Español</label>           
-                    <br>
-                    
-                    <h3>Tipo de Moneda</h3>
-
-                    <input type="radio" id="dolar" name="moneda" value="dolar">
-                    <label for="dolar">Dolares</label><br> 
-                    <input type="radio" id="colon" name="moneda" value="colon">
-                    <label for="colon">Colon</label>
-                    <br>         
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="notificaciones" name="notificaciones" value="yes">
+                        <label for="notificaciones">Recibir Notificaciones</label>
+                    </div>
+            
+                    <div class="radio-group">
+                        <h3>Idioma</h3>
+                        <input type="radio" id="idioma1" name="idioma" value="1">
+                        <label for="idioma1">Ingles</label>
+                        <input type="radio" id="idioma2" name="idioma" value="2">
+                        <label for="idioma2">Español</label>
+                    </div>
+            
+                    <div class="radio-group">
+                        <h3>Tipo de Moneda</h3>
+                        <input type="radio" id="dolar" name="moneda" value="dolar">
+                        <label for="dolar">Dolares</label>
+                        <input type="radio" id="colon" name="moneda" value="colon">
+                        <label for="colon">Colon</label>
+                    </div>
                 </form>
-
+            
                 <button id="button_pref">Aceptar</button>
             </div>
+            
 
             <div class="user-history">
                 <h2>Reservation History</h2>
