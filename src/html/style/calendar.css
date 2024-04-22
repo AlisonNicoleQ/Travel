@@ -92,3 +92,24 @@ header h1{
         width: 100%;
     }
   }
+
+  .footer {
+    background-color: #4CAF50;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
+
+.redes {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.redes .item {
+    margin: 0 10px;
+}
+
+.redes .item img {
+    width: 24px;
+}
