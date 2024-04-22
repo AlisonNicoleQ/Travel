@@ -1,48 +1,47 @@
 
-@import url("https://fonts.googleapis.com/css2?family=Fahkwang:wght@700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,700&display=swap");
-
-body {
-  font-family: "DM Sans", sans-serif;
-  background-color: white;
-      background-repeat: no-repeat;
-      background-size: cover; 
-      background-attachment: fixed; 
-      margin: 0;
-      padding: 0;
-    }
-    .section-navBar {
-      height: 8vh;
-      background-color: white;
-      border: 1px solid green;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-left: 5%;
-      padding-right: 5%;
-  }
-  
-  .navBar-items {
-      display: flex;
-      justify-content: space-evenly;
-      align-items: center;
-      width: 30%;
-      height: 100%;
-  }
-  
-  .navBar-items img {
-      width: 40px; 
-      height: auto;
-  
-  }
-  .textoNavBar{
-      font-size: 50px;
-      color: #00750b
-  }
-h2 {
-  font-family: "Fahkwang", sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #fff;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.section-navBar {
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  z-index: 100;
+}
+
+.textoNavBar {
+  font-size: 24px;
+  font-weight: bold;
+  color: #4CAF50;
+}
+
+.navBar-items {
+  display: flex;
+}
+
+.navBar-items a {
+  margin-right: 10px;
+}
+
+.navBar-items a img {
+  width: 24px;
+}
 
 .content {
   z-index: 1; 
