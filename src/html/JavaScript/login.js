@@ -57,6 +57,8 @@ document.getElementById('CreateAccountForm').addEventListener('submit', async (e
           document.getElementById("user-phone").textContent = clientePhone;
           document.getElementById("user-password").textContent = password;
           document.getElementById("user-photo").textContent = cliente.imagen;
+
+          await GetHistorial();
           
       } else {
           const errorData = await response.json();
@@ -109,6 +111,8 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
             document.getElementById("user-phone").textContent = clientePhone;
             document.getElementById("user-password").textContent = password;
             document.getElementById("user-photo").textContent = cliente.imagen;
+
+            await GetHistorial();
 
         } else {
             const errorData = await response.json();
@@ -313,4 +317,68 @@ function Logout(){
     sessionStorage.removeItem('clienteId');
 
     console.log('Removed clienteId from session storage. Logged Out');
+}
+
+
+async function GetHistorial() {
+    // Retrieve the stored clienteId from sessionStorage
+    const storedClienteId = sessionStorage.getItem('clienteId');
+    if (storedClienteId) {
+        console.log('Stored Cliente ID:', storedClienteId);
+
+        try {
+            const response = await fetch('/api/getHistorial', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id_cliente: parseInt(storedClienteId) })
+            });
+            if (response.ok) {
+                const data = await response.json();
+
+                // Consgeuimos el contenedor donde se ponen los historiales
+                const userHistoryContainer = document.querySelector('.user-history');
+
+                // iteramos sobre cada item del historial
+                data.forEach(item => {
+                    // creamos un div para cada item del historial
+                    const historialDiv = document.createElement('div');
+                    historialDiv.classList.add('historial');
+
+                    // creamos un parrafo para cada propiedad del item del historial
+                    const itemName = document.createElement('p');
+                    itemName.innerHTML = `<strong>Item:</strong> <span id="activity">${item.items}</span>`;
+
+                    const date = document.createElement('p');
+                    date.innerHTML = `<strong>Fecha:</strong> <span id="date">${item.fecha_compra}</span>`;
+
+                    const price = document.createElement('p');
+                    price.innerHTML = `<strong>Precio:</strong> <span id="price">${item.precio}</span>`;
+
+                    const subtotal = document.createElement('p');
+                    subtotal.innerHTML = `<strong>Subtotal:</strong> <span id="status">${item.subtotal}</span>`;
+
+                    const quantity = document.createElement('p');
+                    quantity.innerHTML = `<strong>Cantidad:</strong> <span id="cantidad">${item.cantidad}</span>`;
+
+                    // agregamos los parrafos al div del historial
+                    historialDiv.appendChild(itemName);
+                    historialDiv.appendChild(date);
+                    historialDiv.appendChild(price);
+                    historialDiv.appendChild(subtotal);
+                    historialDiv.appendChild(quantity);
+
+                    // agregamos el div del historial al contenedor
+                    userHistoryContainer.appendChild(historialDiv);
+                });
+            } else {
+                throw new Error('Internal database error.');
+            }
+        } catch (error) {
+            console.error('Error fetching history items:', error);
+        }
+    } else {
+        console.log('No cliente ID stored.');
+    }
 }

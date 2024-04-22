@@ -262,7 +262,7 @@ router.put('/getHistorial', async (req, res) => {
   const { id_cliente } = req.body;
 
   try {
-    const insertDetalleCarrito = await prisma.historialCompra.findMany({
+    const historialCarrito = await prisma.historialCompra.findMany({
       where: {
         id_cliente 
       },
@@ -275,11 +275,11 @@ router.put('/getHistorial', async (req, res) => {
       }
     });
 
-    res.json(insertDetalleCarrito);
-    console.log('Se agrego al historial:', insertDetalleCarrito);
+    res.json(historialCarrito);
+    console.log('Historial de cliente:', historialCarrito);
   } catch (error) {
-    console.error(`Error al isnertar al historial: ${id_cliente}: ${error}`);
-    res.status(500).json({ error: 'Hubo un error insertando al historial' });
+    console.error(`Error al conseguir el historial: ${id_cliente}: ${error}`);
+    res.status(500).json({ error: 'Hubo un error consiguiendo el historial' });
   }
 });
 

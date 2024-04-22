@@ -289,3 +289,9 @@ button:hover {
 form, input, textarea, button {
     font-family: 'Montserrat', sans-serif;
 }
+
+.historial{
+    border: solid black 1px;
+    border-radius: 5px;
+    margin: 2px;
+}
