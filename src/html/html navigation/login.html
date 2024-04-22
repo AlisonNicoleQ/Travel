@@ -79,7 +79,7 @@
     <!-- Once User has logged in, or is already logged in, they can see this div -->
     <div id="user-profile">
         <div class="user-header">
-            <h1>User Profile</h1>
+            <h1>Perfil de Usuario</h1>
             <div id="logout-btn">
                 <a href="../index.html" onclick="Logout()">LogOut</a>
             </div>
@@ -94,12 +94,12 @@
             
             <!-- Seccion Para editar la informacion del usuario si es el caso -->
             <div class="user-info">
-                <h2>Edit Information</h2>
-                <p><strong>Name:</strong> <span id="user-name">nombre actual</span></p>
+                <h2>Editar Informacion</h2>
+                <p><strong>Nombre:</strong> <span id="user-name">nombre actual</span></p>
                 <p><strong>Email:</strong> <span id="user-email">email actual</span></p>
-                <p><strong>Phone:</strong> <span id="user-phone">correo actual</span></p>
+                <p><strong>Telefono:</strong> <span id="user-phone">correo actual</span></p>
                 <p><strong>Password:</strong> <span id="user-password">password actual</span></p>
-                <p><strong>Picture:</strong> <span id="user-photo">foto</span></p>
+                <p><strong>Foto:</strong> <span id="user-photo">foto</span></p>
                 
                 
                 <button id="edit-info" onclick="EditInfo()">Edit</button>
@@ -107,7 +107,7 @@
 
             <!-- Aqui se van a poner los settings que desea el usuario, se van a guardar en base de datos de forma de array (espero) -->
             <div class="user-settings">
-                <h2>User Preferences</h2>
+                <h2>Preferencias de Usuario</h2>
             
                 <form>
                     <div class="checkbox-group">
@@ -137,7 +137,14 @@
             
 
             <div class="user-history">
-                <h2>Reservation History</h2>
+                <h2>Historial de Reservas</h2>
+
+                <div class="historial">
+                    <p><strong>Item:</strong> <span id="activity">nombre actividad</span></p>
+                    <p><strong>Fecha:</strong> <span id="date">fecha</span></p>
+                    <p><strong>Precio:</strong> <span id="price">precio</span></p>
+                    <p><strong>subtotal:</strong> <span id="status">estado</span></p>
+                </div>
             </div>
             
             

@@ -257,6 +257,32 @@ router.post('/addHistorial', async (req, res) => {
   }
 });
 
+//select historial where id == cliente id
+router.put('/getHistorial', async (req, res) => {
+  const { id_cliente } = req.body;
+
+  try {
+    const insertDetalleCarrito = await prisma.historialCompra.findMany({
+      where: {
+        id_cliente 
+      },
+      select: {
+        items: true,
+        precio: true,
+        cantidad: true,
+        subtotal: true,
+        fecha_compra: true,
+      }
+    });
+
+    res.json(insertDetalleCarrito);
+    console.log('Se agrego al historial:', insertDetalleCarrito);
+  } catch (error) {
+    console.error(`Error al isnertar al historial: ${id_cliente}: ${error}`);
+    res.status(500).json({ error: 'Hubo un error insertando al historial' });
+  }
+});
+
 /*
 ====================================================================
 Pago
