@@ -1,5 +1,9 @@
 // Inicializar el mapa
-var map = L.map('map-container').setView([8.5664, -83.578], 10); // Coordenadas del Parque Nacional Corcovado
+
+document.addEventListener('DOMContentLoaded', function () {
+    console.log('DOM cargado');
+
+    var map = L.map('map-container').setView([8.5664, -83.578], 10); // Coordenadas del Parque Nacional Corcovado
 
 // Agregar capa de mapa base
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -45,3 +49,5 @@ function filterMarkers() {
         }
     });
 }
+});
+
