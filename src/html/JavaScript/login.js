@@ -417,7 +417,8 @@ document.getElementById('recuperarContraForm').addEventListener('submit', async 
         if (response.ok) {
             alert("Se ha cambiado la contraseña exitosamente!");
             login.style.display = 'flex';
-            recuperarContra.classList.toggle('hide');
+            recuperarContra.classList.add('hide');
+            recuperarContra.style.display = 'none';
 
         } else {
             throw new Error('No se pudo actualizar la contraseña.');
