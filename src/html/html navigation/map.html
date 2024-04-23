@@ -1,47 +1,80 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Map</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <!-- Agregar Tailwind CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../style/map.css">
-
+    <link rel="stylesheet" href="../style/destinos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" integrity="sha512-+p1O+n6Kdvh1o8OGyQ8Cvr+R+cqMv5HNKdDdzyM/ZeXGSHkEu2FVbwxfoLcJS/zk8zzQxa5O7rn5nCyH0fLgNw==" crossorigin=""/>
 </head>
 
-<body class="h-screen flex flex-col relative">
-    <div id="map-container" class="relative flex-grow flex justify-between">
-        <div id="filters" class="bg-green-200 p-4 shadow-lg rounded mr-4">
-            <h2 class="text-lg font-bold mb-4">Filtros</h2>
-            <label class="block mb-2">
-                <input type="checkbox" name="tour" value="tour" class="mr-2">
-                <span class="text-sm">Tours</span>
-            </label>
-            <label class="block mb-2">
-                <input type="checkbox" name="hotel" value="hotel" class="mr-2">
-                <span class="text-sm">Hoteles</span>
-            </label>
-            <label class="block mb-2">
-                <input type="checkbox" name="attraction" value="attraction" class="mr-2">
-                <span class="text-sm">Atracciones Turísticas</span>
-            </label>
-            <button onclick="filterMarkers()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full transition-colors block mx-auto">Filtrar</button>
-        </div>
-        <div id="map" class="w-3/4 h-full"></div>
+<body>
 
-        <div id="place-info" class="hidden bg-white p-4 absolute top-0 right-0 z-10">
-            <h2 id="place-name" class="text-lg font-semibold mb-2"></h2>
-            <div id="place-description" class="mb-2"></div>
-            <img id="place-photo" src="" alt="Photo" class="w-full mb-2">
-            <button id="close-info" class="bg-gray-300 px-2 py-1 rounded">Cerrar</button>
-        </div>
-        
+    <div id="main-container">
+        <div class="section-navBar">
+            <div class="textoNavBar">
+                <a href="../index.html">PUNTARENAS</a>
+            </div>
+            
+            <div class="navBar-items">
+                <a href="../html navigation/calendar.html"><img src="../style/imagenes/calendario.jpeg" alt="Calendario"></a>
+                <a href="../html navigation/map.html"><img src="../style/imagenes/mapa.jpeg" alt="Mapa"></a>
+                <a href=""><img src="../style/imagenes/ofertas.jpeg " alt="Ofertas" ></a>
+                <a href="../html navigation/faq.html"><img src="../style/imagenes/faq.jpeg" alt="FAQ" ></a>
+                <a href="../html navigation/carrito.html"><img src="../style/imagenes/carritocompras.jpeg" alt="Carrito" ></a>
+                <a href="../html navigation/login.html"><img src="../style/imagenes/iconousuario.jpeg" alt="Usuario" ></a>
+            </div>
+        </div> 
     </div>
-    <script src="https://unpkg.com/leaflet"></script>
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../JavaScript/map.js"></script>
+
+    <header>
+        <h1>Descubre los mejores destinos</h1>
+    </header>
+
+    <div class="contenedor">
+        <div class="filtro-contenedor">
+            <h2>Filtros</h2>
+            <div>
+                <input type="checkbox" id="tour" value="tour" onclick="filterMarkers()">
+                <label for="tour">Tour</label>
+            </div>
+            <div>
+                <input type="checkbox" id="hotel" value="hotel" onclick="filterMarkers()">
+                <label for="hotel">Hotel</label>
+            </div>
+            <div>
+                <input type="checkbox" id="attraction" value="attraction" onclick="filterMarkers()" checked>
+                <label for="attraction">Atracción</label>
+            </div>
+        </div>
+
+        <div id="map-container"></div>
+    </div>
+
+        <div id="map-container"></div>
+    </div>
+
+    <script src="../JavaScript/map.js" async></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js" integrity="sha512-5qtnXHa0ZJUz6r6R5/oM2z02kQz7Rvv3WG0YsR7Q6oaXbEBizdK+f8cT1FqA/6W97jPs46GIeoCkJcz5TjxkAQ==" crossorigin=""></script>
+
+    <div class="footer">
+        <p>¡Síguenos y contáctanos en nuestras redes!</p>
+        <div class="redes">
+            <div class="item">
+                <a href=""><img src="../style/imagenes/facebook.png" alt="facebook"></a>
+            </div>
+            <div class="item">
+                <a href=""><img src="../style/imagenes/whatsapp.png" alt="whatsapp"></a>
+            </div>
+            <div class="item">
+                <a href=""><img src="../style/imagenes/instagram.png" alt="Instagram"></a>
+            </div>
+            <div class="item">
+                <a href=""><img src="../style/imagenes/telegram.png" alt="Telegram"></a>
+            </div>
+        </div>
+    </div>
+    
 </body>
 </html>

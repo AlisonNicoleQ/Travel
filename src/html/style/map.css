@@ -1,55 +1,144 @@
-
-
-
-body, html {
-    height: 100%;
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #fff;
+    color: #333;
+}
 
-.container {
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.section-navBar {
+    background-color: #fff;
     display: flex;
-    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    z-index: 100;
 }
 
-#filters {
-    width: 200px;
-    background-color: #ecf8ec; 
+.textoNavBar {
+    font-size: 24px;
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+.navBar-items {
+    display: flex;
+}
+
+.navBar-items a {
+    margin-right: 10px;
+}
+
+.navBar-items a img {
+    width: 24px;
+}
+
+/*Headre: Portada de sitio web*/
+header {
+    background: url(imgDestinos/header.svg);
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+}
+
+header h1 {
+    text-align: center;
+    font-size: 35px;
+    color: #fff;
+    padding: 30px 0;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.contenedor {
+    max-width: 1200px;
+    padding: 10px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    /* Se oculta .contenedor */
+    contain: paint;
+}
+
+.filtro-contenedor {
+    width: 25%;
+    padding: 10px;
+}
+
+#map-container {
+    width: 70%;
+    height: 600px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+/*Responsive */
+@media screen and (max-width: 850px) {
+    .contenedor {
+        display: block;
+    }
+
+    .contenedor-items {
+        width: 100% !important;
+    }
+
+    .reserva {
+        width: 100%;
+    }
+}
+
+.footer {
+    background-color: #4CAF50;
+    color: #fff;
+    text-align: center;
     padding: 20px;
 }
 
-#map { 
-    flex: 1;
-    height: 100%; 
+.redes {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
 }
 
-.map-container {
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
+.redes .item {
+    margin: 0 10px;
 }
 
-#place-info {
-    width: 300px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    padding: 20px;
-    top: 20px;
-    right: 20px;
+.redes .item img {
+    width: 24px;
 }
 
-#place-info h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+.boton-item {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
 }
 
-#place-info img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 1rem;
+.boton-item:hover {
+    background-color: #45a049;
+    color: white;
 }
 
-#place-info button {
-    margin-top: 1rem;
-}

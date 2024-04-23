@@ -1,5 +1,5 @@
 // Inicializar el mapa
-var map = L.map('map').setView([8.5664, -83.578], 10); // Coordenadas del Parque Nacional Corcovado
+var map = L.map('map-container').setView([8.5664, -83.578], 10); // Coordenadas del Parque Nacional Corcovado
 
 // Agregar capa de mapa base
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -12,16 +12,17 @@ var markers = L.layerGroup(); // Grupo de marcadores
 var pointsOfInterest = [
     { name: "Tour 1", latlng: [8.5664, -83.578], type: "tour" },
     { name: "Hotel 1", latlng: [8.57, -83.58], type: "hotel" },
-    { 
-        name: "PARQUE NACIONAL CORCOVADO", 
-        latlng: [8.56, -83.59], 
+    {
+        name: "PARQUE NACIONAL CORCOVADO",
+        latlng: [8.56, -83.59],
         type: "attraction",
-        description: "Esta es una descripción del Parque Nacional Corcovado.", 
-        photo: "https://example.com/corcovado.jpg" }
+        description: "Esta es una descripción del Parque Nacional Corcovado.",
+        photo: "https://example.com/corcovado.jpg"
+    }
 ];
 
 // Iterar sobre los datos y crear los marcadores
-pointsOfInterest.forEach(function(point) {
+pointsOfInterest.forEach(function (point) {
     var marker = L.marker(point.latlng);
     marker.bindPopup(point.name);
     marker.feature = { properties: { type: point.type } }; // Asignar tipo al marcador
@@ -35,10 +36,10 @@ function filterMarkers() {
     var filterValues = Array.from(checkboxes).map(checkbox => checkbox.value);
 
     // Iterar sobre todos los marcadores y mostrar u ocultar según los filtros seleccionados
-    markers.eachLayer(function(marker) {
+    markers.eachLayer(function (marker) {
         var markerType = marker.feature.properties.type;
         if (filterValues.includes(markerType)) {
-            marker.addTo(map);
+            map.addLayer(marker); // Cambiado de `marker.addTo(map)` a `map.addLayer(marker)`
         } else {
             map.removeLayer(marker);
         }
