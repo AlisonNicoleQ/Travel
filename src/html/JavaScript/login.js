@@ -3,6 +3,7 @@
 const userProfile = document.getElementById('user-profile');
 const createAcc = document.getElementById('createAccount');
 const login = document.getElementById('login');
+const recuperarContra = document.getElementById('recuperar-pass');
 
 let clienteId = null;
 
@@ -11,6 +12,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   console.log('DOMContentLoaded');
   userProfile.classList.add('hide');
   createAcc.classList.add('hide');
+  recuperarContra.classList.add('hide');
+
+  console.log(Array.from(document.getElementById('recuperar-pass').classList));
 });
 
 
@@ -172,6 +176,7 @@ function displayResponseMessage(message, isError) {
 
 function createAccount(){
   login.style.display = 'none';
+  recuperarContra.style.display = 'none';
   createAcc.classList.remove('hide');
 }
 
@@ -381,4 +386,53 @@ async function GetHistorial() {
     } else {
         console.log('No cliente ID stored.');
     }
+}
+
+
+function RecuperarPass(){
+    login.style.display = 'none';
+    recuperarContra.style.display = 'block';
+    recuperarContra.classList.remove('hide');
+}
+
+//Recuperar contraseña
+document.getElementById('recuperarContraForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const email = formData.get('recuperar-email'); 
+    const password = formData.get('recuperar-password');
+
+    console.log('Email:', email, 'Password:', password)
+    
+    try {
+        const response = await fetch('/api/recoverPass', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ correo: email, contrasena: password })
+        });
+
+        if (response.ok) {
+            alert("Se ha cambiado la contraseña exitosamente!");
+            login.style.display = 'flex';
+            recuperarContra.classList.toggle('hide');
+
+        } else {
+            throw new Error('No se pudo actualizar la contraseña.');
+        }
+
+    } catch (error) {
+        console.error(error);
+        alert('Hubo un error al intentar actualizar la contraseña. Por favor, inténtelo de nuevo.');
+    }
+});
+
+
+function LogInAccount(){
+    login.style.display = 'flex';
+    createAcc.classList.add('hide');
+    recuperarContra.style.display = 'none';
+    recuperarContra.classList.add('hide');
 }

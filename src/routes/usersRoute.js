@@ -138,6 +138,28 @@ router.put('/updatePreferences', async (req, res) => {
   }
 });
 
+//recuperar la contraseña
+router.put('/recoverPass', async (req, res) => {
+  const { correo, contrasena } = req.body;
+
+  try {
+    const updatedCliente = await prisma.cliente.update({
+      where: {
+        correo
+      },
+      data: {
+        contrasena
+      }
+    });
+
+    res.json(updatedCliente);
+    console.log('Cliente actualizado:', updatedCliente);
+  } catch (error) {
+    console.error(`Error al actualizar el cliente: ${correo}: ${error}`);
+    res.status(500).json({ error: 'Hubo un error al actualizar el cliente' });
+  }
+});
+
 /*
 ====================================================================
 Agregar Carrito

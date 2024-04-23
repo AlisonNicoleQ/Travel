@@ -40,6 +40,10 @@
                 <div class="login-input">
                     <label for="password">Password:</label>
                     <input type="password" id="create-password" name="password" required><br><br>
+                </div>   
+                
+                <div id="create-account">
+                    <p>Ya tienes cuenta? <a href="#" onclick="LogInAccount()">Inicia Sesion!</a></p>
                 </div>
                 
                 <div class="login-btn">
@@ -67,8 +71,51 @@
                     <button type="submit">Login</button>
                 </div>
 
+                <br>
+                <br>
+
+                <div class="form-group">
+                    <a href="#" onclick="RecuperarPass()">¿Olvidaste tu contraseña?</a>
+                </div>
+
+                <br>
+
+                <div class="iconos">
+                    <a href="#"><img src="../style/imagenes/facebook-icone-vert.png" onclick="" alt="Facebook"></a>
+                    <a href="#"><img src="../style/imagenes/instagram-icone-vert.png" onclick="" alt="Instagram"></a>
+                </div>
+
                 <div id="create-account">
-                    <p>Don't have an account? <a href="#" onclick="createAccount()">Create one!</a></p>
+                    <p>No tienes cuenta? <a href="#" onclick="createAccount()">Crea una!</a></p>
+                </div>
+                
+            </form>
+        </div>
+
+        <div id="recuperar-pass">
+            <h2>Recuperar Contraseña</h2>
+            
+            <form id="recuperarContraForm">
+                <div class="login-input">
+                    <label for="email">Email:</label>
+                    <input type="email" id="emailRecuperar" name="recuperar-email" required><br><br>
+                </div>
+
+                <div class="login-input">
+                    <label for="password">New Password:</label>
+                    <input type="password" id="passwordRecuperar" name="recuperar-password" required><br><br>
+                </div>
+                
+                <div class="login-btn">
+                    <button type="submit">Recuperar</button>
+                </div>
+
+                <div id="create-account">
+                    <p>No tienes cuenta? <a href="#" onclick="createAccount()">Crea una!</a></p>
+                </div>
+
+                <div id="create-account">
+                    <p><a href="#" onclick="LogInAccount()">Volver</a></p>
                 </div>
                 
             </form>
