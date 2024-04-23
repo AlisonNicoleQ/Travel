@@ -283,7 +283,10 @@ form, input, textarea, button {
     width: calc(100% - 20px); /* Ancho completo */
     text-align: center;
     margin: 20px 0; /* Reducimos el margen entre los elementos */
+    overflow-y: auto;
+    height: 300px;
 }
+
 .user-section {
     display: flex;
     justify-content: center; /* Alinea los elementos al centro horizontalmente */
