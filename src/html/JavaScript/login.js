@@ -4,18 +4,97 @@ const userProfile = document.getElementById('user-profile');
 const createAcc = document.getElementById('createAccount');
 const login = document.getElementById('login');
 const recuperarContra = document.getElementById('recuperar-pass');
+const chooseImageFrm = document.getElementById('image-upload-form')
 
 let clienteId = null;
 
 document.addEventListener('DOMContentLoaded', async () => { 
-  // comienza "escondido"
-  console.log('DOMContentLoaded');
-  userProfile.classList.add('hide');
-  createAcc.classList.add('hide');
-  recuperarContra.classList.add('hide');
+   clienteId = sessionStorage.getItem('clienteId');
+   console.log('Cliente ID:', clienteId);
 
-  console.log(Array.from(document.getElementById('recuperar-pass').classList));
+   chooseImageFrm.style.display = 'none';
+
+  if(clienteId !== null){
+
+    try{        
+        const response = await fetch('/api/getUser', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ ID_cliente: parseInt(clienteId) })
+        });
+
+        if (response.ok) {
+            userProfile.classList.remove('hide');
+            login.style.display = 'none';
+            createAcc.classList.add('hide');
+            recuperarContra.classList.add('hide');
+
+            const data = await response.json();
+            console.log('Cliente:', data);
+
+            const cliente = data;
+            const clienteName = cliente.nombre;
+            const clienteEmail = cliente.correo;
+            const clientePhone = cliente.telefono;
+            const idiomaId = cliente.idioma.ID_idioma;
+
+            var obj_preferencias = cliente.Preferencias;
+            var preferencias = JSON.parse(obj_preferencias);
+
+            document.getElementById('notificaciones').checked = preferencias.notificaciones;
+            document.getElementById(preferencias.moneda).checked = true;
+            document.getElementById(`idioma${idiomaId}`).checked = true;
+
+            // Poner los valores en el HTML
+            document.getElementById("user-name").textContent = clienteName;
+            document.getElementById("user-email").textContent = clienteEmail;
+            document.getElementById("user-phone").textContent = clientePhone;
+            document.getElementById("user-password").textContent = cliente.contrasena;
+            document.getElementById("user-photo").textContent = cliente.imagen;
+
+            const getImageResponse = await fetch(`/api/getImage/${clienteId}`);
+
+            if (getImageResponse.ok) {
+                const imageData = await getImageResponse.json();
+                console.log('Image retrieved:', imageData.imagePath);
+
+                const userPhoto = document.getElementById('user-photo');
+                userPhoto.src = imageData.imagePath;
+                userPhoto.alt = 'User Photo';
+            } else {
+                console.error('Failed to get image:', getImageResponse.statusText);
+            }
+
+            await GetHistorial();
+        }
+        else{
+            console.error('Error:', error);
+            // comienza "escondido"
+            userProfile.classList.add('hide');
+            createAcc.classList.add('hide');
+            recuperarContra.classList.add('hide');
+        }
+
+    }
+    catch(error){
+        console.error('Error:', error);
+        // comienza "escondido"
+        userProfile.classList.add('hide');
+        createAcc.classList.add('hide');
+        recuperarContra.classList.add('hide');
+    }
+    
+  } 
+  else {
+    // comienza "escondido"
+    userProfile.classList.add('hide');
+    createAcc.classList.add('hide');
+    recuperarContra.classList.add('hide');
+  }
 });
+
 
 
 document.getElementById('CreateAccountForm').addEventListener('submit', async (event) => {
@@ -110,11 +189,34 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
             sessionStorage.setItem('clienteId', clienteId);
 
             // Poner los valores en el HTML
+
+            const idiomaId = cliente.ID_idioma;
+
+            var obj_preferencias = cliente.Preferencias;
+            var preferencias = JSON.parse(obj_preferencias);
+
+            document.getElementById('notificaciones').checked = preferencias.notificaciones;
+            document.getElementById(preferencias.moneda).checked = true;
+            document.getElementById(`idioma${idiomaId}`).checked = true;
+
             document.getElementById("user-name").textContent = clienteName;
             document.getElementById("user-email").textContent = clienteEmail;
             document.getElementById("user-phone").textContent = clientePhone;
             document.getElementById("user-password").textContent = password;
             document.getElementById("user-photo").textContent = cliente.imagen;
+
+            const getImageResponse = await fetch(`/api/getImage/${clienteId}`);
+
+            if (getImageResponse.ok) {
+                const imageData = await getImageResponse.json();
+                console.log('Image retrieved:', imageData.imagePath);
+
+                const userPhoto = document.getElementById('user-photo');
+                userPhoto.src = imageData.imagePath;
+                userPhoto.alt = 'User Photo';
+            } else {
+                console.error('Failed to get image:', getImageResponse.statusText);
+            }
 
             await GetHistorial();
 
@@ -185,9 +287,21 @@ async function EditInfo() {
     var button = document.getElementById('edit-info');
     var infoSpans = document.querySelectorAll('.user-info span');
     var updatedInfo = {};
+    var imageInputValue; // Variable to store the file input value
     
     if (button.textContent === 'Edit') {
+        // Show the upload image form and choose image button
+        document.getElementById('image-upload-form').style.display = 'block';
+        
+        // Move this line inside the if block
+        var imageInput = document.getElementById('user-image');
+        imageInputValue = imageInput.value;
+
         infoSpans.forEach(function(span) {
+            if (span.id === 'user-photo') {
+                // If the span is for displaying the photo, store the current file input value
+                imageInputValue = imageInput.value;
+            }
             var input = document.createElement('input');
             input.value = span.textContent.trim();
             input.id = span.id.replace('user-', ''); // Eliminando el prefijo 'user-' del id del span
@@ -208,11 +322,53 @@ async function EditInfo() {
 
         console.log('Updated info:', updatedInfo);
         
+        // Hide the upload image form and choose image button
+        document.getElementById('image-upload-form').style.display = 'none';
+
         await Update(updatedInfo);
 
         button.textContent = 'Edit';
     }
 }
+
+
+document.getElementById('image-upload-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+    const imageInput = document.getElementById('user-image');
+    formData.append('userImage', imageInput.files[0]);
+
+    const clienteId = sessionStorage.getItem('clienteId');
+
+    try {
+        const uploadResponse = await fetch(`/api/uploadImage/${clienteId}`, {
+            method: 'POST',
+            body: formData,
+        });
+
+        if (!uploadResponse.ok) {
+            console.error('Failed to upload image:', uploadResponse.statusText);
+            return;
+        }
+
+        // After successfully uploading the image, fetch the image URL
+        const getImageResponse = await fetch(`/api/getImage/${clienteId}`);
+
+        if (getImageResponse.ok) {
+            const imageData = await getImageResponse.json();
+            console.log('Image retrieved:', imageData.imagePath);
+
+            const userPhoto = document.getElementById('user-photo');
+            userPhoto.src = imageData.imagePath;
+            userPhoto.alt = 'User Photo';
+        } else {
+            console.error('Failed to get image:', getImageResponse.statusText);
+        }
+    } catch (error) {
+        console.error('Error uploading or getting image:', error);
+    }
+});
 
 async function Update(updatedInfo){
     try {
@@ -221,16 +377,17 @@ async function Update(updatedInfo){
         let contrasena = updatedInfo.password;
         let telefono = updatedInfo.phone;
         let nombre = updatedInfo.name;
-        let imagen = updatedInfo.photo;
 
-        console.log('Cliente a editar: [id:', clienteId,"]", "Correo:", correo, "Contraseña:", contrasena, "Telefono:", telefono, "Nombre:", nombre, "Imagen:", imagen);
+        clienteId = sessionStorage.getItem('clienteId');
+
+        console.log('Cliente a editar: [id:', clienteId,"]", "Correo:", correo, "Contraseña:", contrasena, "Telefono:", telefono, "Nombre:", nombre );
                 
         const response = await fetch('/api/updateCliente', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ID_cliente: clienteId, correo: correo, contrasena: contrasena, telefono: telefono, nombre: nombre, imagen: imagen})
+            body: JSON.stringify({ID_cliente: parseInt(clienteId), correo: correo, contrasena: contrasena, telefono: telefono, nombre: nombre })
         });
         
         if (response.ok) {
@@ -437,3 +594,10 @@ function LogInAccount(){
     recuperarContra.style.display = 'none';
     recuperarContra.classList.add('hide');
 }
+
+
+
+
+
+
+

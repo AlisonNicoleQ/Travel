@@ -1,12 +1,76 @@
 // Archivo: src/routes/usersRoute.js
 
+import fs from 'fs'; // Importar fs para leer archivos
 import express from 'express';
+import multer from 'multer'; // Importar multer para manejar la carga de archivos
 import { PrismaClient } from '@prisma/client'; // Importar Prisma Client
 
 const router = express.Router();
 const prisma = new PrismaClient(); // Crear una instancia de Prisma Client
 
 router.use(express.json());
+
+// Multer configuration
+const uploadDirectory = 'uploads/';
+
+// Multer configuration
+const upload = multer({ dest: uploadDirectory }); // Change 'uploads/' to your desired upload directory
+
+// Ensure that the upload directory exists, create it if it doesn't
+if (!fs.existsSync(uploadDirectory)) {
+  fs.mkdirSync(uploadDirectory);
+}
+// Foto test
+router.post('/uploadImage/:ID_cliente', upload.single('userImage'), async (req, res) => {
+  try {
+    const ID_cliente = parseInt(req.params.ID_cliente); // Parse ID_cliente as an integer
+    console.log('Cliente ID:', ID_cliente); // Log the user ID
+
+    const { path } = req.file; // Get the path of the uploaded file
+    console.log('File path:', path); // Log the file path
+
+    // Read the file as binary data
+    const fileData = fs.readFileSync(path);
+
+    // Save image data as bytes to Prisma database
+    const fotoUsuario = await prisma.cliente.update({
+      where: { ID_cliente },
+      data: { imagen: fileData }
+    });
+
+    res.json({ message: 'Image uploaded successfully' });
+  } catch (error) {
+    console.error('Error uploading image:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+router.get('/getImage/:ID_cliente', async (req, res) => {
+  try {
+    const ID_cliente = parseInt(req.params.ID_cliente); // Parse ID_cliente as an integer
+    console.log('Cliente ID:', ID_cliente); // Log the user ID
+
+    // Retrieve image data as bytes from Prisma database
+    const cliente = await prisma.cliente.findFirst({
+      where: { ID_cliente },
+      select: { imagen: true }
+    });
+
+    if (!cliente || !cliente.imagen) {
+      return res.status(404).json({ error: 'Image not found' });
+    }
+
+    // Convert image data bytes to Base64-encoded string
+    const base64Image = Buffer.from(cliente.imagen, 'binary').toString('base64');
+
+    res.json({ imagePath: `data:image/jpeg;base64,${base64Image}` }); // Send Base64-encoded image data in response
+  } catch (error) {
+    console.error('Error getting image:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
 
 
 // Ruta para obtener los clientes
@@ -89,7 +153,7 @@ router.post('/login', async (req, res) => {
 
 //Update Cliente
 router.put('/updateCliente', async (req, res) => {
-  const { ID_cliente, nombre, correo, contrasena, telefono, imagen } = req.body;
+  const { ID_cliente, nombre, correo, contrasena, telefono } = req.body;
 
   try {
     const updatedCliente = await prisma.cliente.update({
@@ -101,7 +165,6 @@ router.put('/updateCliente', async (req, res) => {
         correo,
         contrasena,
         telefono,
-        imagen
       }
     });
 
@@ -157,6 +220,38 @@ router.put('/recoverPass', async (req, res) => {
   } catch (error) {
     console.error(`Error al actualizar el cliente: ${correo}: ${error}`);
     res.status(500).json({ error: 'Hubo un error al actualizar el cliente' });
+  }
+});
+
+//Si esta el usuario loggeado, y hay un user id en el session storage, entonces traemos esa informacion.
+router.put('/getUser', async (req, res) => {
+  const { ID_cliente } = req.body;
+
+  try {
+    const user = await prisma.cliente.findFirst({
+      where: {
+        ID_cliente
+      },
+      select: {
+        ID_cliente: true,
+        nombre: true,
+        correo: true,
+        telefono: true,
+        imagen: true,
+        Preferencias: true,
+        idioma: {
+          select: {
+            ID_idioma: true
+          }
+        }
+      }
+    });
+
+    res.json(user);
+    console.log(`User: con id ${ID_cliente}`, user);
+  } catch (error) {
+    console.error(`Error al conseguir el usuario: ${ID_cliente}: ${error}`);
+    res.status(500).json({ error: 'Error al conseguir el usuario' });
   }
 });
 
