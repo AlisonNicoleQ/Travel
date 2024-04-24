@@ -8,13 +8,66 @@ const recuperarContra = document.getElementById('recuperar-pass');
 let clienteId = null;
 
 document.addEventListener('DOMContentLoaded', async () => { 
-  // comienza "escondido"
-  console.log('DOMContentLoaded');
-  userProfile.classList.add('hide');
-  createAcc.classList.add('hide');
-  recuperarContra.classList.add('hide');
+    clienteId = sessionStorage.getItem('clienteId');
 
-  console.log(Array.from(document.getElementById('recuperar-pass').classList));
+  if(clienteId !== null){
+
+    try{        
+        const response = await fetch('/api/getUser', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id_cliente: parseInt(clienteId) })
+        });
+
+        if (response.ok) {
+            userProfile.classList.remove('hide');
+            login.style.display = 'none';
+            createAcc.classList.add('hide');
+            recuperarContra.classList.add('hide');
+
+            const data = await response.json();
+            console.log('Cliente:', data);
+
+            const cliente = data.cliente;
+            const clienteName = cliente.nombre;
+            const clienteEmail = cliente.correo;
+            const clientePhone = cliente.telefono;
+
+            // Poner los valores en el HTML
+            document.getElementById("user-name").textContent = clienteName;
+            document.getElementById("user-email").textContent = clienteEmail;
+            document.getElementById("user-phone").textContent = clientePhone;
+            document.getElementById("user-password").textContent = cliente.contrasena;
+            document.getElementById("user-photo").textContent = cliente.imagen;
+
+            await GetHistorial();
+        }
+        else{
+            console.error('Error:', error);
+            // comienza "escondido"
+            userProfile.classList.add('hide');
+            createAcc.classList.add('hide');
+            recuperarContra.classList.add('hide');
+        }
+
+    }
+    catch(error){
+        console.error('Error:', error);
+        // comienza "escondido"
+        userProfile.classList.add('hide');
+        createAcc.classList.add('hide');
+        recuperarContra.classList.add('hide');
+    }
+    
+  } 
+  else {
+    // comienza "escondido"
+    userProfile.classList.add('hide');
+    createAcc.classList.add('hide');
+    recuperarContra.classList.add('hide');
+  }
 });
 
 

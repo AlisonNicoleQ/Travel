@@ -160,6 +160,37 @@ router.put('/recoverPass', async (req, res) => {
   }
 });
 
+//Si esta el usuario loggeado, y hay un user id en el session storage, entonces traemos esa informacion.
+router.put('/getUser', async (req, res) => {
+  const { ID_cliente } = req.body;
+
+  try {
+    const user = await prisma.cliente.findUnique({
+      where: {
+        ID_cliente
+      },
+      select: {
+        nombre: true,
+        correo: true,
+        telefono: true,
+        imagen: true,
+        Preferencias: true,
+        idioma: {
+          select: {
+            ID_idioma: true
+          }
+        }
+      }
+    });
+
+    res.json(user);
+    console.log('User:', user);
+  } catch (error) {
+    console.error(`Error al conseguir el usuario: ${ID_cliente}: ${error}`);
+    res.status(500).json({ error: 'Error al conseguir el usuario' });
+  }
+});
+
 /*
 ====================================================================
 Agregar Carrito
