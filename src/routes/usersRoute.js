@@ -138,6 +138,28 @@ router.put('/updatePreferences', async (req, res) => {
   }
 });
 
+//recuperar la contraseña
+router.put('/recoverPass', async (req, res) => {
+  const { correo, contrasena } = req.body;
+
+  try {
+    const updatedCliente = await prisma.cliente.update({
+      where: {
+        correo
+      },
+      data: {
+        contrasena
+      }
+    });
+
+    res.json(updatedCliente);
+    console.log('Cliente actualizado:', updatedCliente);
+  } catch (error) {
+    console.error(`Error al actualizar el cliente: ${correo}: ${error}`);
+    res.status(500).json({ error: 'Hubo un error al actualizar el cliente' });
+  }
+});
+
 /*
 ====================================================================
 Agregar Carrito
@@ -254,6 +276,32 @@ router.post('/addHistorial', async (req, res) => {
   } catch (error) {
     console.error(`Error al isnertar al historial: ${id_cliente}: ${error}`);
     res.status(500).json({ error: 'Hubo un error insertando al historial' });
+  }
+});
+
+//select historial where id == cliente id
+router.put('/getHistorial', async (req, res) => {
+  const { id_cliente } = req.body;
+
+  try {
+    const historialCarrito = await prisma.historialCompra.findMany({
+      where: {
+        id_cliente 
+      },
+      select: {
+        items: true,
+        precio: true,
+        cantidad: true,
+        subtotal: true,
+        fecha_compra: true,
+      }
+    });
+
+    res.json(historialCarrito);
+    console.log('Historial de cliente:', historialCarrito);
+  } catch (error) {
+    console.error(`Error al conseguir el historial: ${id_cliente}: ${error}`);
+    res.status(500).json({ error: 'Hubo un error consiguiendo el historial' });
   }
 });
 

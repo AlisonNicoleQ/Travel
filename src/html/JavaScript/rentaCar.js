@@ -254,8 +254,77 @@ function actualizarTotalReserva(){
 
 }
 
+function ready(){
+    
+    //Btn para eliminar la reserva
+    var botonesEliminarItem = document.getElementsByClassName('btn-eliminar');
+    for(var i=0;i<botonesEliminarItem.length; i++){
+        var button = botonesEliminarItem[i];
+        button.addEventListener('click',eliminarItemReserva);
+    }
 
+    //Btn suma
+    var botonesSumarCantidad = document.getElementsByClassName('sumar-cantidad');
+    for(var i=0;i<botonesSumarCantidad.length; i++){
+        var button = botonesSumarCantidad[i];
+        button.addEventListener('click',sumarCantidad);
+    }
 
+     //Btn resta
+    var botonesRestarCantidad = document.getElementsByClassName('restar-cantidad');
+    for(var i=0;i<botonesRestarCantidad.length; i++){
+        var button = botonesRestarCantidad[i];
+        button.addEventListener('click',restarCantidad);
+    }
+
+    //Btn reserva
+    var botonesAgregarReserva = document.getElementsByClassName('boton-item');
+    for(var i=0; i<botonesAgregarReserva.length;i++){
+        var button = botonesAgregarReserva[i];
+        button.addEventListener('click', agregarReservaClicked);
+    }
+
+    //Btn pagar
+    document.getElementsByClassName('btn-pagar')[0].addEventListener('click',pagarClicked)
+
+    //Conseguimos el ID del cliente
+    storedClienteId = sessionStorage.getItem('clienteId');
+        if (storedClienteId) {
+            console.log('Stored Cliente ID:', storedClienteId);
+            // Do something with the storedClienteId, like displaying it in the UI
+        } else {
+            console.log('No stored Cliente ID found.');
+            // Handle the case where the storedClienteId is null or undefined
+        }
+
+    // Filtrar carros
+    document.getElementById('filtroCarros').addEventListener('change', filtrarCarros);
+}
+
+function filtrarCarros() {
+    var filtro = document.getElementById('filtroCarros').value;
+    var items = document.querySelectorAll('.contenedor-items .item');
+    
+    items.forEach(item => {
+        item.style.display = 'block';
+    });
+
+    if (filtro === 'nombre') {
+        var nombre = prompt("Ingresa el nombre del carro:");
+        items.forEach(item => {
+            if (item.dataset.nombre.toLowerCase() !== nombre.toLowerCase()) {
+                item.style.display = 'none';
+            }
+        });
+    } else if (filtro === 'precio') {
+        var precio = prompt("Ingresa el precio:");
+        items.forEach(item => {
+            if (parseInt(item.dataset.precio) > parseInt(precio)) {
+                item.style.display = 'none';
+            }
+        });
+    }
+}
 
 
 

@@ -1,230 +1,186 @@
-
-@import url('https://fonts.googleapis.com/css2?family=PT+Serif:wght@400&display=swap');
-
 * {
-    margin: 0%;
-    padding: 0%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    height: 100%;
-    width: auto;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #fff;
+    color: #333;
 }
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .section-navBar {
-    height: 8vh;
-    border: 1px solid green;
+    background-color: #fff;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-left: 5%;
-    padding-right: 5%;
+    padding: 10px 20px;
+    z-index: 100;
+}
+
+.textoNavBar {
+    font-size: 24px;
+    font-weight: bold;
+    color: #4CAF50;
 }
 
 .navBar-items {
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 30%;
-    height: 100%;
 }
 
-.navBar-items img {
-    width: 40px; 
-    height: auto;
-
-}
-.textoNavBar{
-    font-size: 50px;
-    color: #00750b
+.navBar-items a {
+    margin-right: 10px;
 }
 
-.section-provincia .img-home {
-    margin-bottom: 10px;
-}
-
-.section-foto p {
-    font-size: 24px;
-    color: #333; 
-    font-weight: bold; 
-    margin-bottom: 5px;
-}
-
-
-.link-verde {
-    margin-top: 5px;
-    display: inline-block; 
-    background-color: green;
-    color: white;
-    padding: 10px 20px; 
-    border-radius: 5px;
-    text-decoration: none;
-    display: flex;
-    justify-content: center; 
-    align-items: center; 
-    height: 50px; 
-    text-align: center;
-    font-size: 20px;  
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.link-verde:hover {
-    background-color: darkgreen;
+.navBar-items a img {
+    width: 24px;
 }
 
 .section-foto {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;    
+    position: relative;
+    width: 100%;
 }
 
-.contenedor-nombre {
-    width: 10%;
-    height: 5%;
-    align-items: center;
-    justify-content: center;
-}
-
-.img-home {
-    max-width: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    object-fit: cover;
-}
-
-.img-home img{
-    width: 41cm; 
+.section-foto img {
+    width: 100%;
     height: auto;
+    display: block;
+    margin-bottom: 20px; /* Añadiendo margen inferior a las imágenes */
 }
+
+.seccion-provincia {
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 8px;
+    color: #fff;
+    max-width: 80%;
+}
+
+.descubre-puntarenas {
+    font-size: 36px; /* Aumentando el tamaño del texto */
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.link-verde {
+    color: #4CAF50;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.link-verde:hover {
+    text-decoration: underline;
+}
+
+.vamos-button {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 20px;
+    transition: background-color 0.3s, color 0.3s; /* Transición de colores */
+    cursor: pointer;
+}
+
+.vamos-button:hover {
+    background-color: #fff;
+    color: #4CAF50;
+}
+
 .options {
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 100%;
-    flex-wrap: wrap;
-    height: 20vh;
 }
 
-.options h4{
-        color: #6d706d;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin: 10px;
-        margin-left: 10px;
+.item {
+    text-align: center;
+    margin-top: 20px;
 }
 
-.options img {
-    overflow: hidden;
-    width: 4cm;
-
+.item h4 {
+    margin-top: 5px;
+    color: #666;
+    text-align: center;
 }
 
-.item{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-/*seccion de informacion-*/
 .section-info {
-    height: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 30px; /* Añadiendo margen superior */
+    margin-bottom: 30px; /* Añadiendo margen inferior */
 }
 
 .info-container {
+    width: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
-    width: 60%;
+    margin-bottom: 20px;
+}
+
+.info-img,
+.info-text {
+    width: 50%;
 }
 
 .info-text {
-    width: 100%;
-    height: 60%;
-    height: 100%;
-    font-family: 'PT Serif', serif;
-    font-weight: normal;
-    padding-left: 10px;
-    padding-right: 10px;
-    margin-top: 20px;
-    text-align: justify;
-    line-height: 2;
-    align-self: center;
-}
-
-.info-text h1 {
-   color: #00750b;
-   
-  font-size: 20px; 
-  margin-bottom: 10px; 
-  font-weight: normal;
-}
-
-.info-text h4 {
-  font-size: 15px; 
-  margin-bottom: 20px; 
-  font-weight: normal;
-
-}
-
-/* agregar min height - max height */
-.info-img {
-    width: 50%;
-    height: 50%;
-    display: flex;
+    text-align: justify; /* Puedes cambiar a 'right' si quieres alinear a la derecha */
+    margin-left: 20px;
+    margin-right: 20px; /* Añadiendo margen izquierdo a los textos */
 }
 
 .info-img img {
-    width: 100%; /* Ensure the image fills the container horizontally */
-    height: auto; /* Allow the image to scale proportionally */
-    align-self: center;
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px; /* Añadiendo bordes redondeados */
+}
+
+.info-text h4 {
+    margin-bottom: 15px;
 }
 
 .green-link {
-    font-size: 17px;
-    color: #008000; 
-    text-decoration: none;
+    color: #4CAF50;
+    font-size: 18px;
 }
 
 .green-link:hover {
-    color: #006400; 
+    text-decoration: underline;
 }
 
 .green-link img {
-    width: 25px; 
-    height: 25px; 
-    margin-left: 1px; 
-    vertical-align: middle; 
+    vertical-align: middle;
+    width: 20px;
 }
 
-
-.footer{
-    height: 10vh;
-    border: solid green;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.footer {
+    background-color: #4CAF50;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
 }
 
-.redes{
-    margin-top: 1px;
+.redes {
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 60%;
-    height: 50%;
-    gap: 1%;
+    margin-top: 10px;
 }
 
-.redes img {
-    width: 30px; 
-    height: auto; 
+.redes .item {
+    margin: 0 10px;
 }
+
+.redes .item img {
+    width: 24px;
+}
+

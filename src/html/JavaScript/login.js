@@ -3,13 +3,18 @@
 const userProfile = document.getElementById('user-profile');
 const createAcc = document.getElementById('createAccount');
 const login = document.getElementById('login');
+const recuperarContra = document.getElementById('recuperar-pass');
 
 let clienteId = null;
 
 document.addEventListener('DOMContentLoaded', async () => { 
   // comienza "escondido"
+  console.log('DOMContentLoaded');
   userProfile.classList.add('hide');
   createAcc.classList.add('hide');
+  recuperarContra.classList.add('hide');
+
+  console.log(Array.from(document.getElementById('recuperar-pass').classList));
 });
 
 
@@ -56,6 +61,8 @@ document.getElementById('CreateAccountForm').addEventListener('submit', async (e
           document.getElementById("user-phone").textContent = clientePhone;
           document.getElementById("user-password").textContent = password;
           document.getElementById("user-photo").textContent = cliente.imagen;
+
+          await GetHistorial();
           
       } else {
           const errorData = await response.json();
@@ -108,6 +115,8 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
             document.getElementById("user-phone").textContent = clientePhone;
             document.getElementById("user-password").textContent = password;
             document.getElementById("user-photo").textContent = cliente.imagen;
+
+            await GetHistorial();
 
         } else {
             const errorData = await response.json();
@@ -167,6 +176,7 @@ function displayResponseMessage(message, isError) {
 
 function createAccount(){
   login.style.display = 'none';
+  recuperarContra.style.display = 'none';
   createAcc.classList.remove('hide');
 }
 
@@ -312,4 +322,118 @@ function Logout(){
     sessionStorage.removeItem('clienteId');
 
     console.log('Removed clienteId from session storage. Logged Out');
+}
+
+
+async function GetHistorial() {
+    // Retrieve the stored clienteId from sessionStorage
+    const storedClienteId = sessionStorage.getItem('clienteId');
+    if (storedClienteId) {
+        console.log('Stored Cliente ID:', storedClienteId);
+
+        try {
+            const response = await fetch('/api/getHistorial', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id_cliente: parseInt(storedClienteId) })
+            });
+            if (response.ok) {
+                const data = await response.json();
+
+                // Consgeuimos el contenedor donde se ponen los historiales
+                const userHistoryContainer = document.querySelector('.user-history');
+
+                // iteramos sobre cada item del historial
+                data.forEach(item => {
+                    // creamos un div para cada item del historial
+                    const historialDiv = document.createElement('div');
+                    historialDiv.classList.add('historial');
+
+                    // creamos un parrafo para cada propiedad del item del historial
+                    const itemName = document.createElement('p');
+                    itemName.innerHTML = `<strong>Item:</strong> <span id="activity">${item.items}</span>`;
+
+                    const date = document.createElement('p');
+                    date.innerHTML = `<strong>Fecha:</strong> <span id="date">${item.fecha_compra}</span>`;
+
+                    const price = document.createElement('p');
+                    price.innerHTML = `<strong>Precio:</strong> <span id="price">${item.precio}</span>`;
+
+                    const subtotal = document.createElement('p');
+                    subtotal.innerHTML = `<strong>Subtotal:</strong> <span id="status">${item.subtotal}</span>`;
+
+                    const quantity = document.createElement('p');
+                    quantity.innerHTML = `<strong>Cantidad:</strong> <span id="cantidad">${item.cantidad}</span>`;
+
+                    // agregamos los parrafos al div del historial
+                    historialDiv.appendChild(itemName);
+                    historialDiv.appendChild(date);
+                    historialDiv.appendChild(price);
+                    historialDiv.appendChild(subtotal);
+                    historialDiv.appendChild(quantity);
+
+                    // agregamos el div del historial al contenedor
+                    userHistoryContainer.appendChild(historialDiv);
+                });
+            } else {
+                throw new Error('Internal database error.');
+            }
+        } catch (error) {
+            console.error('Error fetching history items:', error);
+        }
+    } else {
+        console.log('No cliente ID stored.');
+    }
+}
+
+
+function RecuperarPass(){
+    login.style.display = 'none';
+    recuperarContra.style.display = 'block';
+    recuperarContra.classList.remove('hide');
+}
+
+//Recuperar contraseña
+document.getElementById('recuperarContraForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const email = formData.get('recuperar-email'); 
+    const password = formData.get('recuperar-password');
+
+    console.log('Email:', email, 'Password:', password)
+    
+    try {
+        const response = await fetch('/api/recoverPass', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ correo: email, contrasena: password })
+        });
+
+        if (response.ok) {
+            alert("Se ha cambiado la contraseña exitosamente!");
+            login.style.display = 'flex';
+            recuperarContra.classList.add('hide');
+            recuperarContra.style.display = 'none';
+
+        } else {
+            throw new Error('No se pudo actualizar la contraseña.');
+        }
+
+    } catch (error) {
+        console.error(error);
+        alert('Hubo un error al intentar actualizar la contraseña. Por favor, inténtelo de nuevo.');
+    }
+});
+
+
+function LogInAccount(){
+    login.style.display = 'flex';
+    createAcc.classList.add('hide');
+    recuperarContra.style.display = 'none';
+    recuperarContra.classList.add('hide');
 }

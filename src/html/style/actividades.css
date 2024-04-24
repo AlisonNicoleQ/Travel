@@ -44,7 +44,7 @@ a {
 
 /*Headre: Portada de sitio web*/
 header{
-    background: url(imgAutos/header.svg);
+    background: url(https://www.marcovasco.fr/blog/wp-content/uploads/2018/05/Costa-Rica-Arenal-1014x487.jpg);
     background-size: cover;
     background-position:center;
     height: 300px;
@@ -273,10 +273,9 @@ header h1{
 .redes .item img {
     width: 24px;
 }
-/* Estilo para los botones */
 .boton-item {
     font-family: 'Montserrat', sans-serif;
-    background-color: #4CAF50; /* Verde */
+    background-color: #4CAF50; 
     color: white;
     border: none;
     padding: 10px 20px;
@@ -285,15 +284,14 @@ header h1{
     display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
+    transition-duration: 0.4s;
     cursor: pointer;
-    border-radius: 8px;
 }
-
 
 .boton-item:hover {
     background-color: #45a049;
+    color: white;
 }
-
 .boton-item, .btn-pagar {
     font-family: 'Montserrat', sans-serif;
     background-color: #4CAF50; 

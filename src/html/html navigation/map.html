@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map</title>
+    <link rel="stylesheet" href="../style/destinos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+</head>
+
+<body>
+
+    <div id="main-container">
+        <div class="section-navBar">
+            <div class="textoNavBar">
+                <a href="../index.html">PUNTARENAS</a>
+            </div>
+            
+            <div class="navBar-items">
+                <a href="../html navigation/calendar.html"><img src="../style/imagenes/calendario.jpeg" alt="Calendario"></a>
+                <a href="../html navigation/map.html"><img src="../style/imagenes/mapa.jpeg" alt="Mapa"></a>
+                <a href=""><img src="../style/imagenes/ofertas.jpeg " alt="Ofertas" ></a>
+                <a href="../html navigation/faq.html"><img src="../style/imagenes/faq.jpeg" alt="FAQ" ></a>
+                <a href="../html navigation/carrito.html"><img src="../style/imagenes/carritocompras.jpeg" alt="Carrito" ></a>
+                <a href="../html navigation/login.html"><img src="../style/imagenes/iconousuario.jpeg" alt="Usuario" ></a>
+            </div>
+        </div> 
+    </div>
+
+    <header>
+        <h1>Descubre los mejores destinos</h1>
+    </header>
+
+    <div class="contenedor">
+        <div class="filtro-contenedor">
+            <h2>Filtros</h2>
+            <div>
+                <input type="checkbox" id="tour" value="tour" onclick="filterMarkers()">
+                <label for="tour">Tour</label>
+            </div>
+            <div>
+                <input type="checkbox" id="hotel" value="hotel" onclick="filterMarkers()">
+                <label for="hotel">Hotel</label>
+            </div>
+            <div>
+                <input type="checkbox" id="attraction" value="attraction" onclick="filterMarkers()" checked>
+                <label for="attraction">Atracción</label>
+            </div>
+            <div>
+                <button onclick="filterMarkers()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full transition-colors block mx-auto">Filtrar</button>
+            </div>
+
+        </div>
+
+        <div id="map-container"></div>
+    </div>
+
+        <div id="map-container"></div>
+
+        <!-- <div id="map-container"></div> -->
+    </div>    
+
+    <div class="footer">
+        <p>¡Síguenos y contáctanos en nuestras redes!</p>
+        <div class="redes">
+            <div class="item">
+                <a href=""><img src="../style/imagenes/facebook.png" alt="facebook"></a>
+            </div>
+            <div class="item">
+                <a href=""><img src="../style/imagenes/whatsapp.png" alt="whatsapp"></a>
+            </div>
+            <div class="item">
+                <a href=""><img src="../style/imagenes/instagram.png" alt="Instagram"></a>
+            </div>
+            <div class="item">
+                <a href=""><img src="../style/imagenes/telegram.png" alt="Telegram"></a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <script src="../JavaScript/map.js"></script>    
+    
+</body>
+</html>

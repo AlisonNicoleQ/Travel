@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Actividades</title>
+    <link rel="stylesheet" href="../style/actividades.css">
+    <div id="main-container">
+        <div class="section-navBar">
+            <div class="textoNavBar">
+                <a href="../index.html">PUNTARENAS</a>
+            </div>
+            
+            <div class="navBar-items">
+                <a href="../html navigation/calendar.html"><img src="../style/imagenes/calendario.jpeg" alt="Calendario"></a>
+                <a href="../html navigation/map.html"><img src="../style/imagenes/mapa.jpeg" alt="Mapa"></a>
+                <a href=""><img src="../style/imagenes/ofertas.jpeg " alt="Ofertas" ></a>
+                <a href="../html navigation/faq.html"><img src="../style/imagenes/faq.jpeg" alt="FAQ" ></a>
+                <a href="../html navigation/carrito.html"><img src="../style/imagenes/carritocompras.jpeg" alt="Carrito" ></a>
+                <a href="../html navigation/login.html"><img src="../style/imagenes/iconousuario.jpeg" alt="Usuario" ></a>
+            </div>
+        </div>  
+</head>
+<body>
+
+<header>
+    <h1>Reserva tu próxima aventura</h1>
+</header>
+
+<section class="contenedor">
+    <!-- Contenedor de Actividades -->
+    <div class="contenedor-items">
+
+        <!-- 1er  -->
+        <div class="item">
+            <span class="titulo-item">Tour Bosque Nuboso de Monteverde</span>
+            <img src="../style/imgActividades/Tour por el Bosque Nuboso de Monteverde.jpg" alt="" class="img-item">
+            <span class="precio-item">₡20000</span>
+            <span class="fecha-item">Fecha: <time datetime="2024-04-20T09:00">20 de abril, 2024 - 09:00</time></span>
+            <button class="boton-item" onclick="agregarReservaClicked('Hotel y Club Punta Leona', '₡500000')">Reservar</button>
+        </div>
+
+        <!-- 2do  -->
+        <div class="item">
+            <span class="titulo-item">Tour Isla Tortuga Cruiser</span>
+            <img src="../style/imgActividades/Isla Tortuga Cruiser.jpg" alt="" class="img-item">
+            <span class="precio-item">₡80000</span>
+            <span class="fecha-item">Fecha: <time datetime="2024-04-21T10:00">21 de abril, 2024 - 10:00</time></span>
+            <button class="boton-item" onclick="agregarReservaClicked('Tour Isla Tortuga Cruiser', '₡80000')">Reservar</button>
+        </div>
+
+        <!-- 3er  -->
+        <div class="item">
+            <span class="titulo-item">Recorrido nocturno en Monteverde</span>
+            <img src="../style/imgActividades/Recorrido nocturno en Monteverde.jpg" alt="" class="img-item">
+            <span class="precio-item">₡15000</span>
+            <span class="fecha-item">Fecha: <time datetime="2024-04-22T18:00">22 de abril, 2024 - 18:00</time></span>
+            <button class="boton-item" onclick="agregarReservaClicked('Recorrido nocturno en Monteverde', '₡15000')">Reservar</button>
+        </div>
+
+        <!-- 4to  -->
+        <div class="item">
+            <span class="titulo-item">Tour Parque Nacional Marino Ballena</span>
+            <img src="../style/imgActividades/Tour Parque Nacional Marino Ballena.jpg" alt="" class="img-item">
+            <span class="precio-item">₡45000</span>
+            <span class="fecha-item">Fecha: <time datetime="2024-04-23T11:30">23 de abril, 2024 - 11:30</time></span>
+            <button class="boton-item" onclick="agregarReservaClicked('Tour Parque Nacional Marino Ballena', '₡45000')">Reservar</button>
+        </div>
+
+        <!-- 5to  -->
+        <div class="item">
+            <span class="titulo-item">Adventure Park Vista Golfo</span>
+            <img src="../style/imgActividades/Adventure Park Vista Golfo.jpg" alt="" class="img-item">
+            <span class="precio-item">₡55000</span>
+            <span class="fecha-item">Fecha: <time datetime="2024-04-24T14:00">24 de abril, 2024 - 14:00</time></span>
+            <button class="boton-item" onclick="agregarReservaClicked('Adventure Park Vista Golfo', '₡55000')">Reservar</button>
+        </div>
+
+        <!-- 6to  -->
+        <div class="item">
+            <span class="titulo-item">Tour puentes colgantes</span>
+            <img src="../style/imgActividades/puentes colgantes en la selva tropical.jpg" alt="" class="img-item">
+            <span class="precio-item">₡65000</span>
+            <span class="fecha-item">Fecha: <time datetime="2024-04-25T15:30">25 de abril, 2024 - 15:30</time></span>
+            <button class="boton-item" onclick="agregarReservaClicked('Tour puentes colgantes en la selva tropical', '₡65000')">Reservar</button>
+        </div>
+
+        <!-- 7mo  -->
+        <div class="item">
+            <span class="titulo-item">Jungle & Rivers Buggy & Crocodile tour</span>
+            <img src="../style/imgActividades/Jungle & Rivers Buggy.jpg" alt="" class="img-item">
+            <span class="precio-item">₡85000</span>
+            <span class="fecha-item">Fecha: <time datetime="2024-04-26T16:45">26 de abril, 2024 - 16:45</time></span>
+            <button class="boton-item" onclick="agregarReservaClicked('Jungle & Rivers Buggy', '₡85000')">Reservar</button>
+        </div>
+
+        <!-- 8vo  -->
+        <div class="item">
+            <span class="titulo-item">Tour de Bioluminiscencia</span>
+            <img src="../style/imgActividades/Tour de Bioluminiscencia en Kayak.jpg" alt="" class="img-item">
+            <span class="precio-item">₡20000</span>
+            <span class="fecha-item">Fecha: <time datetime="2024-04-27T08:30">27 de abril, 2024 - 17:30</time></span>
+            <button class="boton-item" onclick="agregarReservaClicked('Tour de Bioluminiscencia en Kayak', '₡20000')">Reservar</button>
+        </div>
+    </div>
+    
+    <!-- Lista de Reservas -->
+    <div class="reserva" id="reserva">
+        <div class="header-reserva">
+            <h2>Tu Reserva</h2>
+        </div>
+
+        <div class="reserva-items">
+
+        </div>
+        <div class="reserva-total">
+            <div class="fila">
+                <strong>Total</strong>
+                <span class="reserva-precio-total">
+                    ₡120000
+                </span>
+            </div>
+            <button class="btn-pagar">Pagar <i class="fa-solid fa-bag-shopping"></i> </button>
+        </div>
+    </div>
+</section>
+
+<script src="../JavaScript/actividades.js" async></script>
+<div class="footer">
+    <p>¡Síguenos y contáctanos en nuestras redes!</p>
+
+    <div class="redes">
+
+        <div class="item">
+            <a href=""><img src="../style/imagenes/facebook.png" alt="facebook">
+        </div>
+        <div class="item">
+            <a href=""><img src="../style/imagenes/whatsapp.png" alt="whatsapp">
+        </div>
+        <div class="item">
+            <a href=""><img src="../style/imagenes/instagram.png" alt="Instagram">
+        </div>
+        <div class="item">
+            <a href=""><img src="../style/imagenes/telegram.png" alt="Telegram">
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

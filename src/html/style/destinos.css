@@ -1,11 +1,46 @@
-/*General*/
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&family=Titillium+Web:wght@200;300;400;600;700&display=swap');
-*{
+* {
     margin: 0;
-    padding:0;
-    font-family: "Open Sans", sans-serif;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #fff;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.section-navBar {
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    z-index: 100;
+}
+
+.textoNavBar {
+    font-size: 24px;
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+.navBar-items {
+    display: flex;
+}
+
+.navBar-items a {
+    margin-right: 10px;
+}
+
+.navBar-items a img {
+    width: 24px;
+}
 
 /*Headre: Portada de sitio web*/
 header{
@@ -19,6 +54,13 @@ header h1{
     font-size: 35px;
     color: #fff;
     padding: 30px 0;
+    position: absolute; 
+    top: 20%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px; 
+    border-radius: 10px; 
 }
 .contenedor{
     max-width: 1200px;
@@ -211,3 +253,67 @@ header h1{
     }
   }
 
+  .footer {
+    background-color: #4CAF50;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
+
+.redes {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.redes .item {
+    margin: 0 10px;
+}
+
+.redes .item img {
+    width: 24px;
+}
+
+.boton-item {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #4CAF50; 
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.boton-item:hover {
+    background-color: #45a049;
+    color: white;
+}
+.boton-item, .btn-pagar {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #4CAF50; 
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+
+.boton-item:hover, .btn-pagar:hover {
+    background-color: #45a049; 
+}
+
+#map-container{
+    width: 100%;
+    height: 60vh;
+}

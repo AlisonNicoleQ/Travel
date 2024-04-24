@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style/html navigation/login.css">
+    <link rel="stylesheet" href="../style/login.css">
     <title>Login</title>
 </head>
 <body>
@@ -40,6 +40,10 @@
                 <div class="login-input">
                     <label for="password">Password:</label>
                     <input type="password" id="create-password" name="password" required><br><br>
+                </div>   
+                
+                <div id="create-account">
+                    <p>Ya tienes cuenta? <a href="#" onclick="LogInAccount()">Inicia Sesion!</a></p>
                 </div>
                 
                 <div class="login-btn">
@@ -67,8 +71,51 @@
                     <button type="submit">Login</button>
                 </div>
 
+                <br>
+                <br>
+
+                <div class="form-group">
+                    <a href="#" onclick="RecuperarPass()">¿Olvidaste tu contraseña?</a>
+                </div>
+
+                <br>
+
+                <div class="iconos">
+                    <a href="#"><img src="../style/imagenes/facebook-icone-vert.png" onclick="" alt="Facebook"></a>
+                    <a href="#"><img src="../style/imagenes/instagram-icone-vert.png" onclick="" alt="Instagram"></a>
+                </div>
+
                 <div id="create-account">
-                    <p>Don't have an account? <a href="#" onclick="createAccount()">Create one!</a></p>
+                    <p>No tienes cuenta? <a href="#" onclick="createAccount()">Crea una!</a></p>
+                </div>
+                
+            </form>
+        </div>
+
+        <div id="recuperar-pass">
+            <h2>Recuperar Contraseña</h2>
+            
+            <form id="recuperarContraForm">
+                <div class="login-input">
+                    <label for="email">Email:</label>
+                    <input type="email" id="emailRecuperar" name="recuperar-email" required><br><br>
+                </div>
+
+                <div class="login-input">
+                    <label for="password">New Password:</label>
+                    <input type="password" id="passwordRecuperar" name="recuperar-password" required><br><br>
+                </div>
+                
+                <div class="login-btn">
+                    <button type="submit">Recuperar</button>
+                </div>
+
+                <div id="create-account">
+                    <p>No tienes cuenta? <a href="#" onclick="createAccount()">Crea una!</a></p>
+                </div>
+
+                <div id="create-account">
+                    <p><a href="#" onclick="LogInAccount()">Volver</a></p>
                 </div>
                 
             </form>
@@ -79,7 +126,7 @@
     <!-- Once User has logged in, or is already logged in, they can see this div -->
     <div id="user-profile">
         <div class="user-header">
-            <h1>User Profile</h1>
+            <h1>Perfil de Usuario</h1>
             <div id="logout-btn">
                 <a href="../index.html" onclick="Logout()">LogOut</a>
             </div>
@@ -94,12 +141,12 @@
             
             <!-- Seccion Para editar la informacion del usuario si es el caso -->
             <div class="user-info">
-                <h2>Edit Information</h2>
-                <p><strong>Name:</strong> <span id="user-name">nombre actual</span></p>
+                <h2>Editar Informacion</h2>
+                <p><strong>Nombre:</strong> <span id="user-name">nombre actual</span></p>
                 <p><strong>Email:</strong> <span id="user-email">email actual</span></p>
-                <p><strong>Phone:</strong> <span id="user-phone">correo actual</span></p>
+                <p><strong>Telefono:</strong> <span id="user-phone">correo actual</span></p>
                 <p><strong>Password:</strong> <span id="user-password">password actual</span></p>
-                <p><strong>Picture:</strong> <span id="user-photo">foto</span></p>
+                <p><strong>Foto:</strong> <span id="user-photo">foto</span></p>
                 
                 
                 <button id="edit-info" onclick="EditInfo()">Edit</button>
@@ -107,37 +154,38 @@
 
             <!-- Aqui se van a poner los settings que desea el usuario, se van a guardar en base de datos de forma de array (espero) -->
             <div class="user-settings">
-                <h2>User Preferences</h2>
-
-                <h3>Notificaciones y Promociones</h3>
+                <h2>Preferencias de Usuario</h2>
+            
                 <form>
-                    <input type="checkbox" id="notificaciones" name="notificaciones" value="yes">
-                    <label for="notificaciones">Recibir Notificaciones</label>
-                    <br>      
-
-                    <h3>Idioma</h3>
-
-                    
-                    <input type="radio" id="idioma1" name="idioma" value="1"> <!-- Ingles = 1 -->
-                    <label for="idioma1">Ingles</label><br> 
-                    <input type="radio" id="idioma2" name="idioma" value="2"> <!-- Espanol = 2 -->
-                    <label for="idioma2">Español</label>           
-                    <br>
-                    
-                    <h3>Tipo de Moneda</h3>
-
-                    <input type="radio" id="dolar" name="moneda" value="dolar">
-                    <label for="dolar">Dolares</label><br> 
-                    <input type="radio" id="colon" name="moneda" value="colon">
-                    <label for="colon">Colon</label>
-                    <br>         
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="notificaciones" name="notificaciones" value="yes">
+                        <label for="notificaciones">Recibir Notificaciones</label>
+                    </div>
+            
+                    <div class="radio-group">
+                        <h3>Idioma</h3>
+                        <input type="radio" id="idioma1" name="idioma" value="1">
+                        <label for="idioma1">Ingles</label>
+                        <input type="radio" id="idioma2" name="idioma" value="2">
+                        <label for="idioma2">Español</label>
+                    </div>
+            
+                    <div class="radio-group">
+                        <h3>Tipo de Moneda</h3>
+                        <input type="radio" id="dolar" name="moneda" value="dolar">
+                        <label for="dolar">Dolares</label>
+                        <input type="radio" id="colon" name="moneda" value="colon">
+                        <label for="colon">Colon</label>
+                    </div>
                 </form>
-
+            
                 <button id="button_pref">Aceptar</button>
             </div>
+            
 
             <div class="user-history">
-                <h2>Reservation History</h2>
+                <h2>Historial de Reservas</h2>
+                
             </div>
             
             

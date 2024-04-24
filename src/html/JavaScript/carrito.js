@@ -2,7 +2,12 @@
 let itemsCarrito = {};
 const lblTotal = document.getElementById('monto-total');
 const btnPagar = document.getElementById('btnPagar');
-btnPagar.addEventListener('click', handlePayment);
+btnPagar.addEventListener('click', async function(event) {
+    event.preventDefault();
+    btnPagar.removeEventListener('click', this);
+    await handlePayment(); // hacer el pago
+});
+
 let storedClienteId = null;
 
 if(document.readyState == 'loading'){
@@ -173,7 +178,6 @@ async function processPayment(cartItems) {
 
 
 async function handlePayment() {
-
     //guardamos los valores de cada input
     const cardNumber = document.getElementById('cardNumber').value;
     const cardName = document.getElementById('cardName').value;
@@ -197,10 +201,13 @@ async function handlePayment() {
 
     let storedClienteId = sessionStorage.getItem('clienteId');
     if (storedClienteId) {
-        console.log('Stored Cliente ID:', storedClienteId);
+        
+        console.log('Id Cliente conseguido:', storedClienteId);
 
         try {
+            console.log('Procesando pago...');
             // buscamos los items del carrito
+
             const response = await fetch('/api/getCarrito', {
                 method: 'PUT',
                 headers: {
@@ -208,47 +215,46 @@ async function handlePayment() {
                 },
                 body: JSON.stringify({ id_cliente: parseInt(storedClienteId) })
             });
+
             if (response.ok) {
                 const cartItems = await response.json();
 
                 const id_detalle_carritoArray = cartItems.map((item) => item.id_detalle_carrito);
 
-                for(const id_detalle_carrito of id_detalle_carritoArray){
+                const res = await fetch('/api/addPago', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }, 
+                    body: JSON.stringify({ ID_cliente: parseInt(storedClienteId), ID_tipo_m: null, id_detalle_carrito: parseInt(id_detalle_carritoArray[0]), numero_tarjeta: cardNumber, nombre_titular: cardName, fecha_expiracion: fechaExpConvert, cvv: parseInt(cvv), direccion: direccion})
+                });  
+
+                if (!res.ok) {
+                    //hubo un error con el pago en base de datos, retornamos un error
+                    throw new Error('No se pudo procesar el pago.');
+                }
+                else{
                     //agregar los detalles a tabla pago. si es exitoso seguimos procesando el pago.
-                    const res = await fetch('/api/addPago', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }, 
-                        body: JSON.stringify({ ID_cliente: parseInt(storedClienteId), ID_tipo_m: null, id_detalle_carrito: id_detalle_carrito, numero_tarjeta: cardNumber, nombre_titular: cardName, fecha_expiracion: fechaExpConvert, cvv: parseInt(cvv), direccion: direccion})
-                    });
+                    //si no hubo error, seguimos con el proceso de pago
+                    //verificamos si el "processPayment" es exitoso
+                    const paymentResult = await processPayment(cartItems);
 
-                    if (!res.ok) {
-                        //hubo un error con el pago en base de datos, retornamos un error
-                        throw new Error('No se pudo procesar el pago.');
-                    }
-                    else{
-                        //si no hubo error, seguimos con el proceso de pago
-                        //verificamos si el "processPayment" es exitoso
-                        const paymentResult = await processPayment(cartItems);
-
-                        // vemo si es exitoso o no
-                        if (paymentResult.success) {
+                    // vemo si es exitoso o no
+                    if (paymentResult.success) {  
+                        console.log("Payment complete in db");                          
+                        alert('Pago exitoso!');
+                        window.location.reload();
+                    } else {
                             
-                            alert('Pago exitoso!');
-                        } else {
-                            
-                            alert('Pago fallido!');
-                        }
+                        alert('Pago fallido!');
                     }
-                }                
-                
+                }     
             } 
             else{ throw new Error('Error consiguiendo los items del carrito'); }
 
 
         } catch (error) {
-            console.error('Error procesando pago:', error);
+            console.error('Error procesando pago:', error); //error thrown here
             alert('Error procesando pago. Intente de nuevo.');
         }
     } else {

@@ -65,8 +65,17 @@ async function pagarClicked() {
         const quantityString = item.querySelector('.reserva-item-cantidad').value;
 
         const price = parseFloat(priceString.replace('₡', '').replace(',', ''));
-        const subtotal = price * quantityString;
         const quantity = parseInt(item.querySelector('.reserva-item-cantidad').value);
+        const fechaInicio = new Date(item.querySelector('.reserva-item-fecha-inicio').value);
+        const fechaFin = new Date(item.querySelector('.reserva-item-fecha-fin').value);
+        const diferencia = fechaFin.getTime() - fechaInicio.getTime();
+        let dias = Math.round(diferencia / (1000 * 3600 * 24));
+
+        if (dias <= 0) {
+            dias = 1;
+        }
+
+        const subtotal = price * quantity * dias;
 
         console.log("Price" + price);
         console.log("subtotal" + subtotal);
@@ -78,18 +87,18 @@ async function pagarClicked() {
         const res = await fetch('/api/addCarrito', {
             method: 'POST',
             headers: {
-            'Content-Type': 'application/json'
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify({id_cliente: parseInt(storedClienteId), item: title, precio: price, cantidad: quantity, subtotal: subtotal})
+            body: JSON.stringify({ id_cliente: parseInt(storedClienteId), item: title, precio: price, cantidad: quantity, subtotal: subtotal })
         })
-        if(res.ok){
+        if (res.ok) {
 
             //si es exitoso, eliminamos todos los elemenos de la lista de reserva
             const data = await res.json();
             console.log('Item added to cart:', data);
 
             var reservaItems = document.getElementsByClassName('reserva-items')[0];
-            while (reservaItems.hasChildNodes()){
+            while (reservaItems.hasChildNodes()) {
                 reservaItems.removeChild(reservaItems.firstChild)
             }
 
@@ -97,11 +106,11 @@ async function pagarClicked() {
             actualizarTotalReserva();
             ocultarReserva();
         }
-        else{
+        else {
             const errorData = await res.json();
             console.error('Error adding item to cart:', errorData);
         }
-    });    
+    });
 }
 
 //Funcion que controla el boton clickeado de agregar a la lista de resevas
@@ -132,7 +141,7 @@ function hacerVisibleReserva(){
 //Funcion que agrega un destino a la lista de la reserva
 function agregarItemAReserva(titulo, precio, imagenSrc){
     var item = document.createElement('div');
-    item.classList.add = ('item');
+    item.classList.add('reserva-item');
     var itemsReserva = document.getElementsByClassName('reserva-items')[0];
 
     //Evitar repetir el destino
@@ -154,13 +163,17 @@ function agregarItemAReserva(titulo, precio, imagenSrc){
                     <input type="text" value="1" class="reserva-item-cantidad" disabled>
                     <i class="fa-solid fa-plus sumar-cantidad"></i>
                 </div>
+                <label for="fecha-inicio">Fecha de Inicio:</label>
+                <input type="date" id="fecha-inicio" class="reserva-item-fecha-inicio" onchange="actualizarTotalReserva()">
+                <label for="fecha-fin">Fecha de Fin:</label>
+                <input type="date" id="fecha-fin" class="reserva-item-fecha-fin" onchange="actualizarTotalReserva()">
                 <span class="reserva-item-precio">${precio}</span>
             </div>
             <button class="btn-eliminar">
                 <i class="fa-solid fa-trash"></i>
             </button>
         </div>
-    `
+    `;
     item.innerHTML = itemReservaContenido;
     itemsReserva.append(item);
 
@@ -241,22 +254,27 @@ function actualizarTotalReserva(){
     for(var i=0; i< reservaItems.length;i++){
         var item = reservaItems[i];
         var precioElemento = item.getElementsByClassName('reserva-item-precio')[0];
+        var fechaInicioElemento = item.getElementsByClassName('reserva-item-fecha-inicio')[0];
+        var fechaFinElemento = item.getElementsByClassName('reserva-item-fecha-fin')[0];
+        var cantidadItem = item.getElementsByClassName('reserva-item-cantidad')[0];
    
         var precio = parseFloat(precioElemento.innerText.replace('₡','').replace('.',''));
-        var cantidadItem = item.getElementsByClassName('reserva-item-cantidad')[0];
-        console.log(precio);
         var cantidad = cantidadItem.value;
-        total = total + (precio * cantidad);
+        var fechaInicio = fechaInicioElemento.value;
+        var fechaFin = fechaFinElemento.value;
+
+        var fechaInicioDate = new Date(fechaInicio);
+        var fechaFinDate = new Date(fechaFin);
+        var diferencia = fechaFinDate.getTime() - fechaInicioDate.getTime();
+        var dias = Math.round(diferencia / (1000 * 3600 * 24));
+
+        if(dias <= 0) {
+            dias = 1;
+        }
+
+        total = total + (precio * cantidad * dias);
     }
     total = Math.round(total * 100)/100;
 
     document.getElementsByClassName('reserva-precio-total')[0].innerText = '₡'+total.toLocaleString("es") + "";
-
 }
-
-
-
-
-
-
-
