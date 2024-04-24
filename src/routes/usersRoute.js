@@ -165,11 +165,12 @@ router.put('/getUser', async (req, res) => {
   const { ID_cliente } = req.body;
 
   try {
-    const user = await prisma.cliente.findUnique({
+    const user = await prisma.cliente.findFirst({
       where: {
         ID_cliente
       },
       select: {
+        ID_cliente: true,
         nombre: true,
         correo: true,
         telefono: true,
@@ -184,7 +185,7 @@ router.put('/getUser', async (req, res) => {
     });
 
     res.json(user);
-    console.log('User:', user);
+    console.log(`User: con id ${ID_cliente}`, user);
   } catch (error) {
     console.error(`Error al conseguir el usuario: ${ID_cliente}: ${error}`);
     res.status(500).json({ error: 'Error al conseguir el usuario' });

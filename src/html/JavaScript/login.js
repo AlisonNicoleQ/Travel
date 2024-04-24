@@ -8,7 +8,8 @@ const recuperarContra = document.getElementById('recuperar-pass');
 let clienteId = null;
 
 document.addEventListener('DOMContentLoaded', async () => { 
-    clienteId = sessionStorage.getItem('clienteId');
+   clienteId = sessionStorage.getItem('clienteId');
+   console.log('Cliente ID:', clienteId);
 
   if(clienteId !== null){
 
@@ -18,7 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ id_cliente: parseInt(clienteId) })
+            body: JSON.stringify({ ID_cliente: parseInt(clienteId) })
         });
 
         if (response.ok) {
@@ -30,10 +31,18 @@ document.addEventListener('DOMContentLoaded', async () => {
             const data = await response.json();
             console.log('Cliente:', data);
 
-            const cliente = data.cliente;
+            const cliente = data;
             const clienteName = cliente.nombre;
             const clienteEmail = cliente.correo;
             const clientePhone = cliente.telefono;
+            const idiomaId = cliente.idioma.ID_idioma;
+
+            var obj_preferencias = cliente.Preferencias;
+            var preferencias = JSON.parse(obj_preferencias);
+
+            document.getElementById('notificaciones').checked = preferencias.notificaciones;
+            document.getElementById(preferencias.moneda).checked = true;
+            document.getElementById(`idioma${idiomaId}`).checked = true;
 
             // Poner los valores en el HTML
             document.getElementById("user-name").textContent = clienteName;
@@ -69,6 +78,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     recuperarContra.classList.add('hide');
   }
 });
+
 
 
 document.getElementById('CreateAccountForm').addEventListener('submit', async (event) => {
@@ -163,6 +173,16 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
             sessionStorage.setItem('clienteId', clienteId);
 
             // Poner los valores en el HTML
+
+            const idiomaId = cliente.ID_idioma;
+
+            var obj_preferencias = cliente.Preferencias;
+            var preferencias = JSON.parse(obj_preferencias);
+
+            document.getElementById('notificaciones').checked = preferencias.notificaciones;
+            document.getElementById(preferencias.moneda).checked = true;
+            document.getElementById(`idioma${idiomaId}`).checked = true;
+
             document.getElementById("user-name").textContent = clienteName;
             document.getElementById("user-email").textContent = clienteEmail;
             document.getElementById("user-phone").textContent = clientePhone;
