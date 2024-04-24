@@ -295,7 +295,10 @@ async function EditInfo() {
         
         // Move this line inside the if block
         var imageInput = document.getElementById('user-image');
-        imageInputValue = imageInput.value;
+
+        if (imageInput && imageInput.value) { // Check if imageInput exists and its value is not null
+            imageInputValue = imageInput.value;
+        }
 
         infoSpans.forEach(function(span) {
             if (span.id === 'user-photo') {
@@ -308,7 +311,7 @@ async function EditInfo() {
             span.parentNode.replaceChild(input, span);
         });
         button.textContent = 'Save';
-    } else {
+    }else {
         var inputFields = document.querySelectorAll('.user-info input');
         inputFields.forEach(function(input) {
             var span = document.createElement('span');
@@ -325,12 +328,17 @@ async function EditInfo() {
         // Hide the upload image form and choose image button
         document.getElementById('image-upload-form').style.display = 'none';
 
+        // Restore the file input value
+        if (imageInputValue) {
+            var imageInput = document.getElementById('user-image');
+            imageInput.value = imageInputValue;
+        }
+
         await Update(updatedInfo);
 
         button.textContent = 'Edit';
     }
 }
-
 
 document.getElementById('image-upload-form').addEventListener('submit', async (event) => {
     event.preventDefault();
