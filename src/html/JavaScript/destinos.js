@@ -210,7 +210,6 @@ function eliminarItemReserva(event){
     actualizarTotalReserva();
 
     //reconoce si hay elementos en la lista de reserva
-    //Si no hay se oculta
     ocultarReserva();
 }
 
