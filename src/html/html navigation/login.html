@@ -141,15 +141,25 @@
             
             <!-- Seccion Para editar la informacion del usuario si es el caso -->
             <div class="user-info">
-                <h2>Editar Informacion</h2>
-                <p><strong>Nombre:</strong> <span id="user-name">nombre actual</span></p>
-                <p><strong>Email:</strong> <span id="user-email">email actual</span></p>
-                <p><strong>Telefono:</strong> <span id="user-phone">correo actual</span></p>
-                <p><strong>Password:</strong> <span id="user-password">password actual</span></p>
-                <p><strong>Foto:</strong> <span id="user-photo">foto</span></p>
+                <div class="foto-container">
+                    <p><strong></strong> <img id="user-photo"  class="profile-photo" src="" alt="User Photo"></p>
                 
+                    <form id="image-upload-form">
+                        <input type="file" id="user-image" name="user-image" accept="image/*">
+                        <button type="submit" id="upload-button">Upload Image</button>
+                    </form>
+                </div>
+
+                <div class="edit-info">
+                    <h2>Editar Informacion</h2>
+                    <p><strong>Nombre:</strong> <span id="user-name">nombre actual</span></p>
+                    <p><strong>Email:</strong> <span id="user-email">email actual</span></p>
+                    <p><strong>Telefono:</strong> <span id="user-phone">correo actual</span></p>
+                    <p><strong>Password:</strong> <span id="user-password">password actual</span></p>                    
+                    
+                    <button id="edit-info" onclick="EditInfo()">Edit</button>
+                </div>
                 
-                <button id="edit-info" onclick="EditInfo()">Edit</button>
             </div>
 
             <!-- Aqui se van a poner los settings que desea el usuario, se van a guardar en base de datos de forma de array (espero) -->
